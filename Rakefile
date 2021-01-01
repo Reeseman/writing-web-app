@@ -4,3 +4,9 @@
 require_relative "config/application"
 
 Rails.application.load_tasks
+
+namespace :db do
+  task :up do
+    sh 'postgres -D /usr/local/var/postgres'
+  end
+end
