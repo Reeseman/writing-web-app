@@ -1,9 +1,23 @@
-# README
+# Writwell
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Dependencies
 
-Things you may want to cover:
+- ruby-2.7.0
+- Rails 6.1.0
+- postgres (PostgreSQL) 13.1
+
+## Frontend
+
+- Vue
+- Vuetify
+
+## Testing
+
+:)
+
+## Backend
+
+### Database
 
 * Ruby version
 
