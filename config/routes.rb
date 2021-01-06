@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   root :to => 'home#index'
   resources :users
   get 'app', to: 'users#index'
-
+  get 'api/v1/first_user_email', :to => 'users#first_user_email'
 end

@@ -8,7 +8,9 @@
 </template>
 
 <script>
+
 import user from "./packs/components/user.vue";
+
 export default {
   data: function() {
     return {
@@ -19,6 +21,7 @@ export default {
     user: user
   }
 };
+
 </script>
 
 <style scoped>

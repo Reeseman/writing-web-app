@@ -15,18 +15,19 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log(app)
 })
 
-import TurbolinksAdapter from 'vue-turbolinks'
+// figure this out later, it currently causes some console error...
+// import TurbolinksAdapter from 'vue-turbolinks'
 
-Vue.use(TurbolinksAdapter)
+// Vue.use(TurbolinksAdapter)
 
-document.addEventListener('turbolinks:load', () => {
-  const app = new Vue({
-    el: '#hello',
-    data: () => {
-      return {
-        message: "Can you say hello?"
-      }
-    },
-    components: { App }
-  })
-})
+// document.addEventListener('turbolinks:load', () => {
+//   const app = new Vue({
+//     el: '#hello',
+//     data: () => {
+//       return {
+//         message: "Can you say hello?"
+//       }
+//     },
+//     components: { App }
+//   })
+// })
