@@ -7,6 +7,6 @@ Rails.application.load_tasks
 
 namespace :db do
   task :up do
-    sh 'postgres -D /usr/local/var/postgres'
+    sh 'brew services start postgresql'
   end
 end
