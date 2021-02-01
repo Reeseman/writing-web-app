@@ -1,25 +1,28 @@
 <template>
   <div id="app">
-    <v-app>
-      <p>{{ message }}</p>
-      <user/>
-    </v-app>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 
-import user from "./packs/components/user.vue";
-
 export default {
   data: function() {
     return {
-      message: "Hello Vue!"
+      // message: "Hello Vue!"
     };
   },
-  components: {
-    user: user
-  }
+  beforeCreate() {
+    const existingSession = this.$cookie.get('session')
+
+    if (existingSession && existingSession.length) { // A string at this point
+      const session = JSON.parse(existingSession)
+      this.$store.commit('user', session.user)
+      this.$store.commit('auth', session.tokens)
+    } else {
+      this.$router.push({ name: 'login' })
+    }
+  },
 };
 
 </script>
