@@ -1,7 +1,9 @@
 <template>
   <div>
     <p>user logged in homepage</p>
-    <router-link to="/users/logout">Logout</router-link>
+    <form @submit.prevent="logout">
+      <button type="submit">Logout</button>
+    </form>
   </div>
 </template>
 
@@ -13,6 +15,19 @@ export default {
     return {
     };
   },
+  methods: {
+    logout() {
+      this.$http.delete('/auth/sign_out', { })
+        .then(response => {
+          this.$cookie.set('session', null);
+          this.$store.commit('auth', null)
+          this.$store.commit('user', null)
+
+          this.$router.push({ name: 'login' })
+        })
+        .catch(error => console.log(error))
+    }
+  }
 };
 
 </script>

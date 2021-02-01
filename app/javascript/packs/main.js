@@ -24,7 +24,7 @@ Vue.prototype.$cookie = vueCookie
 Vue.prototype.$http.interceptors.response.use((response) => {
   if (response.headers['access-token']) {
     // Commits the relevant headers to the store, calling mutation `auth`.
-    const authHeaders = pick(r.headers, ["access-token","client","expiry","uid","token-type"])
+    const authHeaders = pick(response.headers, ["access-token","client","expiry","uid","token-type"])
     store.commit('auth', authHeaders)
 
     var session = vueCookie.get('session')
@@ -48,9 +48,9 @@ Vue.prototype.$http.interceptors.response.use((response) => {
   // This second fat arrow function defines a callback invoked after any FAILED request.
   // This handles every case when the server responds with a 403 / unauthorized. That means
   // we need to redirect the user to the SignIn component.
-  if (router.currentRoute.name !== 'Login' && error.response.status === status.UNAUTHORIZED) {
+  if (router.currentRoute.name !== 'login' && error.response.status === status.UNAUTHORIZED) {
     store.commit('user', null)
-    router.push({ name: 'Login' })
+    router.push({ name: 'login' })
   }
 
   return Promise.reject(error)

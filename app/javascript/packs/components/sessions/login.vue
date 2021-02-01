@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     signin() {
-      this.$http.post('/users/sign_in', { email: this.email, password: this.password })
+      this.$http.post('/auth/sign_in', { email: this.email, password: this.password, confirm_success_url: '/' })
         .then(response => {
           // Again commits the relevant headers to the store.
           const authHeaders = pick(response.headers,
