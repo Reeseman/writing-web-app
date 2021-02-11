@@ -10,3 +10,12 @@ namespace :db do
     sh 'brew services start postgresql'
   end
 end
+
+task :r do
+  sh 'docker-compose down'
+  sh 'docker-compose up --remove-orphans'
+end
+
+task :sh do
+end
+
