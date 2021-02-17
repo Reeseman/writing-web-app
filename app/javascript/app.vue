@@ -19,18 +19,18 @@ export default {
       console.log("current session: " + session);
       this.$store.commit('user', session.user)
       this.$store.commit('auth', session.tokens)
-      this.$router.push({ name: 'dashboard' })
+      this.$router.push({ name: 'dashboard' }).catch(thing);
     } else {
-      this.$router.push({ name: 'login' }).catch(err => {
-        // Ignore the vuex err regarding  navigating to the page they are already on.
-        if (
-          err.name !== 'NavigationDuplicated' &&
-          !err.message.includes('Avoided redundant navigation to current location')
-        ) {
-          // But print any other errors to the console
-          console.error(err);
-        }
-      });
+      this.$router.push({ name: 'login' }).catch(thing);
+    }
+
+    function thing(err) {
+      if (
+        err.name !== 'NavigationDuplicated' &&
+        !err.message.includes('Avoided redundant navigation to current location')
+      ) {
+        console.error(err);
+      }
     }
   },
 };
