@@ -4,7 +4,7 @@ class ProtectedBySessionsController < ApplicationController
   protect_from_forgery unless: -> { request.format.json? }
   before_action :check_session
   prepend_after_action :check_session_after
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
 
   def check_session
     if cookies['session'].nil?

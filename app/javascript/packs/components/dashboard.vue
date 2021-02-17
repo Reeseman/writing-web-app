@@ -1,17 +1,15 @@
 <template>
   <div>
-    <!-- Side navigation -->
     <div class="sidenav">
-      <a href="#">About</a>
-      <a href="#">Services</a>
-      <a href="#">Clients</a>
-      <a href="#">Contact</a>
+      <p>{{ this.email }}</p>
+      <a href="#">New Game</a>
+      <a href="#">My Writs</a>
+      <a href="#">Contacts</a>
+      <a href="#">Settings</a>
+      <a href="#" v-on:click.prevent="logout">Logout</a>
     </div>
     <div class="main">
       <p>user logged in homepage</p>
-      <form @submit.prevent="logout">
-        <button type="submit">Logout</button>
-      </form>
     </div>
   </div>
 </template>
@@ -22,6 +20,7 @@ export default {
   name: 'dashboard',
   data: function() {
     return {
+      email: JSON.parse(this.$cookie.get('session'))['user']['email'],
     };
   },
   methods: {
@@ -36,7 +35,16 @@ export default {
         })
         .catch(error => console.log(error))
     }
-  }
+  },
+  beforeCreate() {
+    console.log(JSON.parse(this.$cookie.get('session')));
+    this.$http.get(`/user_data?token=${this.$cookie.get('session')}`, { })
+          
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => console.log(error))
+  },
 };
 
 </script>
@@ -54,6 +62,10 @@ export default {
   background-color: #111; /* Black */
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 20px;
+}
+
+.sidenav p {
+  color: white;
 }
 
 /* The navigation menu links */
