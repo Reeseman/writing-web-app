@@ -19,3 +19,7 @@ end
 task :sh do
 end
 
+task :c do
+  sh 'docker-compose exec app rails console'
+end
+
