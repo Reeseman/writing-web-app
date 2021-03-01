@@ -37,11 +37,11 @@ export default {
     }
   },
   beforeCreate() {
-    console.log(JSON.parse(this.$cookie.get('session')));
+    // console.log(`beforeCreate session data cookie: ${JSON.parse(this.$cookie.get('session'))}`);
     this.$http.get(`/user_data?token=${this.$cookie.get('session')}`, { })
           
       .then(response => {
-        console.log(response.data);
+        //console.log(`get /user_data response: ${JSON.stringify(response)}`);
       })
       .catch(error => console.log(error))
   },

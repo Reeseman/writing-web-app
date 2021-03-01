@@ -16,7 +16,7 @@ export default {
 
     if (existingSession && existingSession.length && JSON.parse(existingSession) != null) {
       const session = JSON.parse(existingSession)
-      console.log("current session: " + session);
+      console.log(`current session: ${existingSession}`);
       this.$store.commit('user', session.user)
       this.$store.commit('auth', session.tokens)
       this.$router.push({ name: 'dashboard' }).catch(thing);
