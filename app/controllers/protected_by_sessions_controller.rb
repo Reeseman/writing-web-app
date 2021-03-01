@@ -1,7 +1,7 @@
 class ProtectedBySessionsController < ApplicationController
   include DeviseTokenAuth::Concerns::SetUserByToken
 
-  protect_from_forgery unless: -> { request.format.json? }
+  # protect_from_forgery unless: -> { request.format.json? }
   before_action :check_session
   prepend_after_action :check_session_after
   before_action :authenticate_user!
