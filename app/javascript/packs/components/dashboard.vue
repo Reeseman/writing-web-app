@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="sidenav">
+    <div class="sidenav primary-bg">
       <p>{{ this.email }}</p>
       <a href="#">New Game</a>
       <a href="#">My Writs</a>
@@ -9,13 +9,12 @@
       <a href="#" v-on:click.prevent="logout">Logout</a>
     </div>
     <div class="main">
-      <p>user logged in homepage</p>
+      <p class="text-primary">user logged in homepage</p>
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'dashboard',
   data: function() {
@@ -59,13 +58,11 @@ export default {
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
-  background-color: #111; /* Black */
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 20px;
 }
 
 .sidenav p {
-  color: white;
 }
 
 /* The navigation menu links */
@@ -73,13 +70,11 @@ export default {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 25px;
-  color: #818181;
   display: block;
 }
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
-  color: #f1f1f1;
 }
 
 /* Style page content */
