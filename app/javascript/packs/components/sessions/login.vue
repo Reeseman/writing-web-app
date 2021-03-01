@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-sm m-auto my-8">
     <div class="border p-10 border-grey-light shadow rounded">
-      <h3 class="text-2xl mb-6 text-grey-darkest">Sign In NOW</h3>
+      <h3 class="text-2xl mb-6 text-grey-darkest">Sign In</h3>
       <form @submit.prevent="signin">
         <div class="text-red" v-if="error">{{ error }}</div>
 
@@ -15,7 +15,10 @@
         </div>
         <button type="submit" class="font-sans font-bold px-4 rounded cursor-pointer no-underline bg-green hover:bg-green-dark block w-full py-4 text-white items-center justify-center">Sign In</button>
 
-        <div class="my-4"><router-link to="/users/signup" class="link-grey">Sign up</router-link></div>
+        <div class="my-4">
+          <router-link to="/users/signup" class="link-grey">Sign up</router-link>
+          <router-link to="/users/forgot_password" class="link-grey">Forgot password?</router-link>
+        </div>
       </form>
     </div>
   </div>

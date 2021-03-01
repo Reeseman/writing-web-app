@@ -11,14 +11,17 @@ namespace :db do
   end
 end
 
+desc 'Runs dc down then dc up. Basically a nice reset for running the app locally.'
 task :r do
   sh 'docker-compose down'
   sh 'docker-compose up --remove-orphans'
 end
 
+desc 'Gets you into the docker container bash prompt. Handy when you need to run a lot of commands.'
 task :sh do
 end
 
+desc 'Gets you into container\'s rails app console.'
 task :c do
   sh 'docker-compose exec app rails console'
 end

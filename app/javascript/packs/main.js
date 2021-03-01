@@ -35,7 +35,7 @@ Vue.prototype.$http.interceptors.response.use((response) => {
     // The object we are storing in session looks like this:
     // {'tokens': {'access-token': 'foo', ...}, 'user': {'email': 'foo@bar.com', ...}}
     // so that is why we are extracting and modifying, so that the `user` key isn't blown away.
-    if (session) {
+    if (session && JSON.parse(session)) {
       var session = JSON.parse(session)
       session['tokens'] = authHeaders
 

@@ -1,5 +1,6 @@
-class UsersController < ApplicationController
-  # def first_user_email
-  #   render json: User.first.email
-  # end
+class UsersController < ProtectedBySessionsController
+  def user_data
+    render json: { token: params.to_s }, status: 200
+    # render json: User.where(email: params[:email]).first, status: 200
+  end
 end
