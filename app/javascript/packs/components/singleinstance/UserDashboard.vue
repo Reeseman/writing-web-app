@@ -1,22 +1,18 @@
 <template>
   <div>
-    <div class="sidenav primary-bg">
-      <p>{{ this.email }}</p>
-      <a href="#">New Game</a>
-      <a href="#">My Writs</a>
-      <a href="#">Contacts</a>
-      <a href="#">Settings</a>
-      <a href="#" v-on:click.prevent="logout">Logout</a>
-    </div>
+    <BaseSidenav />
     <div class="main">
       <p class="text-primary">user logged in homepage</p>
+      <p>{{ this.email }}</p>
     </div>
   </div>
 </template>
 
 <script>
+import BaseSidenav from '../base/BaseSidenav'
+
 export default {
-  name: 'dashboard',
+  name: 'UserDashboard',
   data: function() {
     return {
       email: JSON.parse(this.$cookie.get('session'))['user']['email'],
@@ -35,6 +31,9 @@ export default {
         .catch(error => console.log(error))
     }
   },
+  components: {
+    BaseSidenav
+  },
   beforeCreate() {
     // console.log(`beforeCreate session data cookie: ${JSON.parse(this.$cookie.get('session'))}`);
     this.$http.get(`/user_data?token=${this.$cookie.get('session')}`, { })
@@ -45,7 +44,6 @@ export default {
       .catch(error => console.log(error))
   },
 };
-
 </script>
 
 <style scoped>

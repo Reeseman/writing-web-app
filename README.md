@@ -14,9 +14,24 @@ This is a work in progress. I'm exporing collaborative writing, improv, humor, a
 
 - Vue.js
 
-### Database
+## Database
 
 - Standalone PostgreSQL, ActiveRecord
+
+## Code Conventions
+
+#### Vue
+
+1. Components must be MultiwordCamelCase, along with their file names
+2. Component `data` must be a function. 
+3. Prop definitions must include at least `type`, `required`, and `validator` fields
+4. v-for must include :key
+5. Don't ever use v-for on the same element as v-if
+6. Always use scoped style attributes
+7. Base components must always start with the word `Base`
+8. Single-instance components must start with `The`
+9. Tightly-coupled components must start with the same base
+10. Prop names should always use camelCase during declaration, but kebab-case in templates and JSX.
 
 ## Games Product Roadmap (coming soon)
 

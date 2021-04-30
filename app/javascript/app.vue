@@ -5,7 +5,6 @@
 </template>
 
 <script>
-
 export default {
   data: function() {
     return {
@@ -34,31 +33,4 @@ export default {
     }
   },
 };
-
 </script>
-
-<!-- https://www.colorpoint.io/color-palette/goldfish/ -->
-<style>
-  body {
-    padding: 30px 30px 30px 30px;
-    background-color: #E0E4CC;
-  }
-  .primary {
-    color: #69D2E7;
-  }
-  .primary-bg {
-    background-color: #69D2E7;
-  }
-  .secondary {
-    color: #FA6900;
-  }
-  .secondary-bg {
-    background-color: #FA6900;
-  }
-  .light {
-    color: #E0E4CC;
-  }
-  .light-bg {
-    background-color: #E0E4CC;
-  }
-</style>
