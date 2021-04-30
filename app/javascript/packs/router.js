@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import login from './components/sessions/login'
-import signup from './components/sessions/signup'
-import forgot_password from './components/sessions/forgot_password'
-import dashboard from './components/dashboard'
+import SignIn from './components/singleinstance/sessions/SignIn'
+import SignUp from './components/singleinstance/sessions/SignUp'
+import ForgotPassword from './components/singleinstance/sessions/ForgotPassword'
+import UserDashboard from './components/singleinstance/UserDashboard'
 
 Vue.use(Router)
 
@@ -12,22 +12,22 @@ export default new Router({
     {
       path: '/users/login',
       name: 'login',
-      component: login
+      component: SignIn
     },
     {
       path: '/users/signup',
       name: 'signup',
-      component: signup
+      component: SignUp
     },
     {
       path: '/users/forgot_password',
       name: 'forgot_password',
-      component: forgot_password
+      component: ForgotPassword
     },
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: dashboard
+      component: UserDashboard
     },
   ]
 })

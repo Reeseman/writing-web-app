@@ -1,20 +1,30 @@
-$primary: #69D2E7;
-$secondary: #FA6900;
-$light: #E0E4CC;
-$dark: #000;
+// <!-- https://www.colorpoint.io/color-palette/goldfish/ -->
+
+// You may use Orange color to illustrate something tropical, funny. It is appealing to young people. Orange color 
+// draws attention, like traffic signs and advertising. It is very effective for promoting food products, toys.
+$darkOrange: #FA6900;
+$lightOrange: #F38630;
+
+// Cyan is a valuable mineral. It is suggesting creativity and self-expression. You may use it for the brand in design,
+// coaching, jewelry, and creative brands. It is also believed to have a negative impact on our sleep.
+$darkBlue: #69D2E7;
+$lightBlue: #A7DBD8;
+
+// You may use Yellow color in marketing advertisements aimed at children. Too much Yellow can cause anxiety, 
+// nervousness, apprehension, agitation. It can confrontation particularly in people who are already stressed.
+$offWhite: #E0E4CC;
+
+$space: #fff;
 
 // $success: ;
-// $info: #F38630;
 // $warning: ;
 // $danger: ;
 
 $theme-colors: (
-  "primary":    $primary,
-  "secondary":  $secondary,
-  "light":      $light,
-  "dark":       $dark
-  // "success":    $success,
-  // "info":       $info,
-  // "warning":    $warning,
-  // "danger":     $danger,
+  "darkOrange": $darkOrange,
+  "lightOrange":$lightOrange,
+  "darkBlue":   $darkBlue,
+  "lightBlue":  $lightBlue,
+  "offWhite":   $offWhite,
+  "space":      $space,
 );
