@@ -1,31 +1,39 @@
 <template>
-  <div class="max-w-sm m-auto my-8">
-    <div class="border p-10 border-grey-light shadow rounded">
-      <h3 class="text-2xl mb-6 text-grey-darkest">Sign In</h3>
-      <form @submit.prevent="signin">
-        <div class="text-red" v-if="error">{{ error }}</div>
+  <div id="SignIn.vue" class="container">
+    <h1 class="title">Writwell</h1>
+    <h3 class="subtitle">Sign in to collaborate with writers around the world</h3>
+    <form @submit.prevent="signin">
+      <div v-if="error">{{ error }}</div>
 
-        <div class="mb-6">
-          <label for="email" class="label">E-mail Address</label>
-          <input type="email" v-model="email" class="input" id="email" placeholder="andy@web-crunch.com">
-        </div>
-        <div class="mb-6">
-          <label for="password" class="label">Password</label>
-          <input type="password" v-model="password" class="input" id="password" placeholder="Password">
-        </div>
-        <button type="submit" class="font-sans font-bold px-4 rounded cursor-pointer no-underline bg-green hover:bg-green-dark block w-full py-4 text-white items-center justify-center">Sign In</button>
+      <div class="inputContainer">
+        <label for="email">E-mail Address</label>
+        <input type="email" v-model="email" id="email" placeholder="Email">
+      </div>
 
-        <div class="my-4">
-          <router-link to="/users/signup" class="link-grey">Sign up</router-link>
-          <router-link to="/users/forgot_password" class="link-grey">Forgot password?</router-link>
-        </div>
-      </form>
-    </div>
+      <div class="inputContainer">
+        <label for="password">Password</label>
+        <input type="password" v-model="password" id="password" placeholder="Password">
+      </div>
+      <BaseButton cta="Sign In"/>
+    </form>
+    <table class="redirectLinks">
+      <tbody>
+      <tr>
+        <td style="text-align: left; align: right;">
+          <router-link to="/users/signup">Sign up</router-link>
+        </td>
+        <td style="text-align: right; align: right;">
+          <router-link to="/users/forgot_password">Forgot password?</router-link>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
-  import { pick } from 'lodash'
+  import BaseButton from 'components/base/BaseButton'
+  import { pick } from 'lodash';
 
   export default {
     name: 'SignIn',
@@ -35,6 +43,9 @@
         password: '',
         error: ''
       }
+    },
+    components: {
+      BaseButton,
     },
     methods: {
       signin() {
@@ -66,5 +77,88 @@
           .catch(error => console.log(error))
       },
     }
-  }
+  };
 </script>
+
+<style lang="scss">
+  @import 'application.scss';
+
+  body {
+    background-color: $medBlue;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center; /*centers items on the line (the x-axis by default)*/
+    align-items: center; /*centers items on the cross-axis (y by default)*/
+  }
+
+  .container {
+    max-width: 600px;
+    min-width: 325px;
+    text-align: center;
+    border: 2px solid $darkOrange;
+    background-color: $whiteSpace;
+    border-radius: 23px;
+    padding: 10px;
+  }
+
+  .inputContainer {
+    margin-bottom: 10px;
+    text-align: left;
+    width: 100%;
+  }
+
+  .inputContainer label {
+    font-size: 10px;
+    display: block;
+    font-family: sans-serif;
+    margin-bottom: 2px;
+    margin-left: 2px;
+  }
+
+  .inputContainer input {
+    padding: 10px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing: border-box;
+    border-radius: 3px;
+    border: 1px solid $darkBlue;
+    outline: none;
+  }
+
+  .inputContainer input:focus {
+    outline: none;
+    border: 1px solid $darkOrange;
+  }
+
+  .redirectLinks {
+    margin-top: 30px;
+    width: 100%;
+  }
+
+  .redirectLinks a {
+    color: $darkBlue;
+  }
+
+  .title {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    color: $darkBlue;
+    font-family: serif;
+    font-weight: normal;
+  }
+
+  .subtitle {
+    padding-top: 0;
+    margin-top: 0;
+    font-size: 15px;
+    color: $darkBlue;
+    font-family: serif;
+    font-weight: normal;
+  }
+</style>
