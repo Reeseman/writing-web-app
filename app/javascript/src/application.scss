@@ -26,3 +26,13 @@ $theme-colors: (
   "offWhite":   $offWhite,
   "whiteSpace": $whiteSpace,
 );
+
+:export {
+  darkOrange: $darkOrange;
+  lightOrange:$lightOrange;
+  darkBlue:   $darkBlue;
+  medBlue:    $medBlue;
+  lightBlue:  $lightBlue;
+  offWhite: $offWhite;
+  whiteSpace: $whiteSpace;
+}

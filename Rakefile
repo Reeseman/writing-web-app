@@ -6,6 +6,7 @@ require_relative "config/application"
 Rails.application.load_tasks
 
 namespace :db do
+  desc 'Starts postgresql on your local machine.'
   task :up do
     sh 'brew services start postgresql'
   end

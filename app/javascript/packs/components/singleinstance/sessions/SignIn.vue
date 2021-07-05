@@ -1,7 +1,6 @@
 <template>
   <div id="SignIn.vue" class="container">
-    <h1 class="title">Writwell</h1>
-    <h3 class="subtitle">Sign in to collaborate with writers around the world</h3>
+    <h1 class="title">Sign in</h1>
     <form @submit.prevent="signin">
       <div v-if="error">{{ error }}</div>
 
@@ -111,7 +110,7 @@
   }
 
   .inputContainer label {
-    font-size: 10px;
+    font-size: 11px;
     display: block;
     font-family: sans-serif;
     margin-bottom: 2px;
@@ -130,11 +129,6 @@
     outline: none;
   }
 
-  .inputContainer input:focus {
-    outline: none;
-    border: 1px solid $darkOrange;
-  }
-
   .redirectLinks {
     margin-top: 30px;
     width: 100%;
@@ -151,14 +145,6 @@
     color: $darkBlue;
     font-family: serif;
     font-weight: normal;
-  }
-
-  .subtitle {
-    padding-top: 0;
-    margin-top: 0;
-    font-size: 15px;
-    color: $darkBlue;
-    font-family: serif;
-    font-weight: normal;
+    margin-bottom: 25px;
   }
 </style>
