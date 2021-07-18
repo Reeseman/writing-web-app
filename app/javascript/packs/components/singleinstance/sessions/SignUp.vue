@@ -1,28 +1,30 @@
 <template>
   <div id="SignUp.vue" class="container">
-    <h1 class="title">Sign Up</h1>
-    <form @submit.prevent="signup">
-      <div v-if="errorMsg">{{ errorMsg }}</div>
+    <div class="signupContainer">
+      <h1 class="title">Sign Up</h1>
+      <form @submit.prevent="signup">
+        <div v-if="errorMsg">{{ errorMsg }}</div>
 
-      <div class="inputContainer">
-        <label for="email">E-mail Address</label>
-        <input type="email" v-model="email" id="email" placeholder="andy@web-crunch.com">
-      </div>
-      <div class="inputContainer">
-        <label for="password">Password</label>
-        <input type="password" v-model="password" id="password" placeholder="Password">
-      </div>
-      <div class="inputContainer">
-        <label for="passwordConfirmation">Password Confirmation</label>
-        <input type="password" v-model="passwordConfirmation" id="passwordConfirmation" placeholder="Password Confirmation">
-      </div>
-      <BaseButton cta="Register"/>
+        <div class="inputContainer">
+          <label for="email">E-mail Address</label>
+          <input type="email" v-model="email" id="email" placeholder="andy@web-crunch.com">
+        </div>
+        <div class="inputContainer">
+          <label for="password">Password</label>
+          <input type="password" v-model="password" id="password" placeholder="Password">
+        </div>
+        <div class="inputContainer">
+          <label for="passwordConfirmation">Password Confirmation</label>
+          <input type="password" v-model="passwordConfirmation" id="passwordConfirmation" placeholder="Password Confirmation">
+        </div>
+        <BaseButton cta="Register"/>
 
-      <div class="redirectLinks">
-        <span>Already have an account? </span>
-        <router-link to="/users/login">Log in</router-link>
-      </div>
-    </form>
+        <div class="redirectLinks">
+          <span>Already have an account? </span>
+          <router-link to="/users/login">Log in</router-link>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -92,10 +94,10 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import 'application.scss';
 
-  body {
+  .container {
     background-color: $medBlue;
     overflow: hidden;
     position: absolute;
@@ -106,7 +108,7 @@
     align-items: center; /*centers items on the cross-axis (y by default)*/
   }
 
-  .container {
+  .signupContainer {
     max-width: 600px;
     min-width: 325px;
     text-align: center;

@@ -50,6 +50,13 @@
         iconColor: colors.offWhite,
       };
     },
+    props: {
+      tab: {
+        type: String,
+        default: 'New Game',
+        required: true
+      }, 
+    },
     components: {
       IconBase,
       IconGear,
@@ -86,7 +93,6 @@
     left: 0;
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 5px;
-    padding-left: 16px;
     background-color: $darkBlue;
   }
 
@@ -98,24 +104,22 @@
   }
 
   .ctaContainer {
-    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 16px;
+  }
+
+  .ctaContainer:hover {
+    text-decoration: underline;
+    background-color: $darkestBlue;
   }
 
   .logo {
-    padding: 6px 8px 16px 0;
+    padding: 6px 8px 16px 16px;
     text-decoration: none;
     font-size: 22px;
     display: block;
     color: $offWhite
-  }
-
-  /* When you mouse over the navigation links, change their color */
-  .sidenav a:hover {
-  }
-
-  .main {
-    margin-left: 160px; /* Same as the width of the sidebar */
-    padding: 0px 10px;
   }
 
   /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */

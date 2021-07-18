@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <BaseSidenav />
+  <div id="UserDashboard.vue">
+    <BaseSidenav :tab="tab"/>
     <div class="main">
-      <p class="text-primary">user logged in homepage</p>
-      <p>{{ this.email }}</p>
+      <div>user logged in homepage</div>
+      <div>{{ this.email }}</div>
     </div>
   </div>
 </template>
@@ -16,20 +16,8 @@
     data: function() {
       return {
         email: JSON.parse(this.$cookie.get('session'))['user']['email'],
+        tab: '',
       };
-    },
-    methods: {
-      logout() {
-        this.$http.delete('/auth/sign_out', { })
-          .then(response => {
-            this.$cookie.set('session', null);
-            this.$store.commit('auth', null)
-            this.$store.commit('user', null)
-
-            this.$router.push({ name: 'login' })
-          })
-          .catch(error => console.log(error))
-      }
     },
     components: {
       BaseSidenav
@@ -46,9 +34,14 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import 'application.scss';
-  body {
+
+  .main {
+    margin-left: 160px;
+    padding: 20px;
     background-color: $offWhite;
+    width: 100%;
+    height: 100vh;
   }
 </style>

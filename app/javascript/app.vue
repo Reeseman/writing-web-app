@@ -5,7 +5,6 @@
 </template>
 
 <script>
-  import BaseButton from 'components/base/BaseButton'
   export default {
     data: function() {
       return {
@@ -19,12 +18,12 @@
         console.log(`current session: ${existingSession}`);
         this.$store.commit('user', session.user)
         this.$store.commit('auth', session.tokens)
-        this.$router.push({ name: 'dashboard' }).catch(thing);
+        this.$router.push({ name: 'dashboard' }).catch(handleError);
       } else {
-        this.$router.push({ name: 'login' }).catch(thing);
+        this.$router.push({ name: 'login' }).catch(handleError);
       }
 
-      function thing(err) {
+      function handleError(err) {
         if (
           err.name !== 'NavigationDuplicated' &&
           !err.message.includes('Avoided redundant navigation to current location')
@@ -36,3 +35,8 @@
   };
 </script>
 
+<style>
+  body {
+    margin: 0;
+  }
+</style>

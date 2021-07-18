@@ -1,36 +1,38 @@
 <template>
   <div id="SignIn.vue" class="container">
-    <h1 class="title">Sign in</h1>
-    <form @submit.prevent="signin">
-      <div v-if="error">{{ error }}</div>
+    <div class="signupContainer">
+      <h1 class="title">Sign in</h1>
+      <form @submit.prevent="signin">
+        <div v-if="error">{{ error }}</div>
 
-      <div class="inputContainer">
-        <label for="email">E-mail Address</label>
-        <input type="email" v-model="email" id="email" placeholder="Email">
-      </div>
+        <div class="inputContainer">
+          <label for="email">E-mail Address</label>
+          <input type="email" v-model="email" id="email" placeholder="Email">
+        </div>
 
-      <div class="inputContainer">
-        <label for="password">Password</label>
-        <input type="password" v-model="password" id="password" placeholder="Password">
-      </div>
-      <BaseButton cta="Sign In"/>
-    </form>
-    <table class="redirectLinks">
-      <tbody>
-      <tr>
-        <td style="text-align: left; align: right;">
-          <router-link to="/users/signup">Sign up</router-link>
-        </td>
-        <td style="text-align: right; align: right;">
-          <router-link to="/users/forgot_password">Forgot password?</router-link>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+        <div class="inputContainer">
+          <label for="password">Password</label>
+          <input type="password" v-model="password" id="password" placeholder="Password">
+        </div>
+        <BaseButton cta="Sign In"/>
+      </form>
+      <table class="redirectLinks">
+        <tbody>
+        <tr>
+          <td style="text-align: left; align: right;">
+            <router-link to="/users/signup">Sign up</router-link>
+          </td>
+          <td style="text-align: right; align: right;">
+            <router-link to="/users/forgot_password">Forgot password?</router-link>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
-<script>
+<script scoped>
   import BaseButton from 'components/base/BaseButton'
   import { pick } from 'lodash';
 
@@ -79,10 +81,10 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import 'application.scss';
 
-  body {
+  .container {
     background-color: $medBlue;
     overflow: hidden;
     position: absolute;
@@ -93,7 +95,7 @@
     align-items: center; /*centers items on the cross-axis (y by default)*/
   }
 
-  .container {
+  .signupContainer {
     max-width: 600px;
     min-width: 325px;
     text-align: center;
