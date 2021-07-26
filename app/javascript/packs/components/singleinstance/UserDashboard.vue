@@ -1,9 +1,11 @@
 <template>
-  <div id="UserDashboard.vue">
-    <BaseSidenav :tab="tab"/>
+  <div id="UserDashboard.vue" class="dashboard">
+    <base-sidenav @eventname="updateTab" />
     <div class="main">
-      <div>user logged in homepage</div>
-      <div>{{ this.email }}</div>
+      <contacts v-show="tab == 'Contacts'" />
+      <my-writs v-show="tab == 'My Writs'" />
+      <new-game v-show="tab == 'New Game'" />
+      <settings v-show="tab == 'Settings'" :email="email" />
     </div>
   </div>
 </template>
@@ -11,16 +13,30 @@
 <script>
   import BaseSidenav from '../base/BaseSidenav'
 
+  import Contacts from '../dashboard/Contacts'
+  import MyWrits from '../dashboard/MyWrits'
+  import NewGame from '../dashboard/NewGame'
+  import Settings from '../dashboard/Settings'
+
   export default {
     name: 'UserDashboard',
     data: function() {
       return {
         email: JSON.parse(this.$cookie.get('session'))['user']['email'],
-        tab: '',
+        tab: 'My Writs',
       };
     },
     components: {
-      BaseSidenav
+      BaseSidenav,
+      Contacts,
+      MyWrits,
+      NewGame,
+      Settings,
+    },
+    methods: {
+      updateTab(tabName) {
+        this.tab = tabName;
+      }
     },
     beforeCreate() {
       // console.log(`beforeCreate session data cookie: ${JSON.parse(this.$cookie.get('session'))}`);
@@ -43,5 +59,9 @@
     background-color: $offWhite;
     width: 100%;
     height: 100vh;
+  }
+
+  .dashboard {
+    overflow: hidden;
   }
 </style>

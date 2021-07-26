@@ -1,35 +1,35 @@
 <template>
   <div class="sidenav">
     <h2 class="logo">Collabowrite</h2>
-    <div class="ctaContainer">
-      <icon-base icon-name="write" :icon-color="iconColor">
-        <icon-write />
-      </icon-base>
-      <a href="#">New Game</a>
-    </div>
-    <div class="ctaContainer">
+    <div class="ctaContainer" v-on:click="updateTab('My Writs')">
       <icon-base icon-name="papers" :icon-color="iconColor">
         <icon-papers />
       </icon-base>
-      <a href="#">My Writs</a>
+      <div>My Writs</div>
     </div>
-    <div class="ctaContainer">
+    <div class="ctaContainer" v-on:click="updateTab('New Game')">
+      <icon-base icon-name="write" :icon-color="iconColor">
+        <icon-write />
+      </icon-base>
+      <div>New Game</div>
+    </div>
+    <div class="ctaContainer" v-on:click="updateTab('Contacts')">
       <icon-base icon-name="people" :icon-color="iconColor">
         <icon-people />
       </icon-base>
-      <a href="#">Contacts</a>
+      <div>Contacts</div>
     </div>
-    <div class="ctaContainer">
+    <div class="ctaContainer" v-on:click="updateTab('Settings')">
       <icon-base icon-name="gear" :icon-color="iconColor">
         <icon-gear />
       </icon-base>
-      <a href="#">Settings</a>
+      <div>Settings</div>
     </div>
-    <div class="ctaContainer">
+    <div class="ctaContainer" v-on:click.prevent="logout">
       <icon-base icon-name="logout" :icon-color="iconColor">
         <icon-logout />
       </icon-base>
-      <a href="#" v-on:click.prevent="logout">Logout</a>
+      <div>Logout</div>
     </div>
   </div>
 </template>
@@ -47,15 +47,8 @@
     name: 'BaseSidenav',
     data: function() {
       return {
-        iconColor: colors.offWhite,
+        iconColor: colors.offWhite
       };
-    },
-    props: {
-      tab: {
-        type: String,
-        default: 'New Game',
-        required: true
-      }, 
     },
     components: {
       IconBase,
@@ -76,6 +69,9 @@
             this.$router.push({ name: 'login' })
           })
           .catch(error => console.log(error))
+      },
+      updateTab(tabName) {
+        this.$emit('eventname', tabName);
       }
     },
   };
@@ -96,22 +92,28 @@
     background-color: $darkBlue;
   }
 
-  .sidenav a {
-    padding: 0px 8px 6px 5px;
-    text-decoration: none;
-    font-size: 18px;
-    color: $offWhite
-  }
-
   .ctaContainer {
     padding-top: 8px;
     padding-bottom: 8px;
-    padding-left: 16px;
+    padding-left: 12px;
+    width: 100%;
+  }
+
+  .ctaContainer > div {
+    padding-left: 5px;
+    text-decoration: none;
+    font-size: 18px;
+    color: $offWhite;
+    display: inline-block;
   }
 
   .ctaContainer:hover {
-    text-decoration: underline;
     background-color: $darkestBlue;
+    cursor: pointer;
+  }
+
+  .ctaContainer:hover > div {
+    text-decoration: underline;
   }
 
   .logo {
