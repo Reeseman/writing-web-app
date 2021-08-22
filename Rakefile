@@ -10,6 +10,10 @@ namespace :db do
   task :up do
     sh 'brew services start postgresql'
   end
+
+  task :r do
+    sh 'brew services restart postgresql'
+  end
 end
 
 desc 'Runs dc down then dc up. Basically a nice reset for running the app locally.'
@@ -20,6 +24,7 @@ end
 
 desc 'Gets you into the docker container bash prompt. Handy when you need to run a lot of commands.'
 task :sh do
+  sh 'docker exec -it writing-web-app_app_1 /bin/sh'
 end
 
 desc 'Gets you into container\'s rails app console.'
