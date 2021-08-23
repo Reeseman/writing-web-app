@@ -5,6 +5,12 @@ require_relative "config/application"
 
 Rails.application.load_tasks
 
+namespace :bundle do
+  task :update do
+    sh 'docker-compose exec app bundle update'
+  end
+end
+
 namespace :db do
   desc 'Starts postgresql on your local machine.'
   task :up do
@@ -13,6 +19,14 @@ namespace :db do
 
   task :r do
     sh 'brew services restart postgresql'
+  end
+
+  task :mg do
+    sh 'docker-compose exec app rails db:migrate'
+  end
+
+  task :rb do
+    sh 'docker-compose exec app rails db:rollback'
   end
 end
 
