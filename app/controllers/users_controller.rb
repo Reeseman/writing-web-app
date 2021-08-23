@@ -1,6 +1,9 @@
+
 class UsersController < ProtectedBySessionsController
   def user_data
-    render json: { token: params.to_s }, status: 200
-    # render json: User.where(email: params[:email]).first, status: 200
+    token = JSON.parse(params[:token]);
+    logger.info(token.to_json)
+    
+    render json: User.find(token['user']['id']), status: 200
   end
 end

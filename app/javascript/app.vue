@@ -15,7 +15,8 @@
 
       if (existingSession && existingSession.length && JSON.parse(existingSession) != null) {
         const session = JSON.parse(existingSession)
-        console.log(`current session: ${existingSession}`);
+        // console.log(`current session: ${existingSession}`);
+        // console.log(`expires: ${new Date(1000 * parseFloat(session['tokens']['expiry']))}`);
         this.$store.commit('user', session.user)
         this.$store.commit('auth', session.tokens)
         this.$router.push({ name: 'dashboard' }).catch(handleError);

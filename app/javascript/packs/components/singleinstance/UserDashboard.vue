@@ -5,7 +5,7 @@
       <contacts v-show="tab == 'Contacts'" />
       <my-writs v-show="tab == 'My Writs'" />
       <new-game v-show="tab == 'New Game'" />
-      <settings v-show="tab == 'Settings'" :email="email" />
+      <settings v-show="tab == 'Settings'" :user="user" />
     </div>
   </div>
 </template>
@@ -22,7 +22,7 @@
     name: 'UserDashboard',
     data: function() {
       return {
-        email: JSON.parse(this.$cookie.get('session'))['user']['email'],
+        user: {},
         tab: 'My Writs',
       };
     },
@@ -39,11 +39,11 @@
       }
     },
     beforeCreate() {
-      // console.log(`beforeCreate session data cookie: ${JSON.parse(this.$cookie.get('session'))}`);
       this.$http.get(`/user_data?token=${this.$cookie.get('session')}`, { })
             
         .then(response => {
-          //console.log(`get /user_data response: ${JSON.stringify(response)}`);
+          // console.log(`get /user_data response: ${JSON.stringify(response.data)}`);
+          this.user = response.data;
         })
         .catch(error => console.log(error))
     },

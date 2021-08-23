@@ -1,6 +1,6 @@
 <template>
   <div id="NewGame.vue">
-    <span>{{ this.email }}</span>
+    <span>Your email: {{ this.user.email }}</span>
   </div>
 </template>
 
@@ -9,9 +9,8 @@
     name: 'Settings',
 
     props: {
-      email: {
-        type: String,
-        default: 'write',
+      user: {
+        type: Object,
         required: true
       }, 
     }
