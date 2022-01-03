@@ -30,19 +30,30 @@ namespace :db do
   end
 end
 
-desc 'Runs dc down then dc up. Basically a nice reset for running the app locally.'
-task :r do
-  sh 'docker-compose down'
-  sh 'docker-compose up --remove-orphans'
-end
+namespace :app do
+    desc 'Bring the app up'
+    task :up do
+      sh 'docker-compose up --remove-orphans'
+    end
 
-desc 'Gets you into the docker container bash prompt. Handy when you need to run a lot of commands.'
-task :sh do
-  sh 'docker exec -it writing-web-app_app_1 /bin/sh'
-end
+    desc 'Tear the app down'
+    task :down do
+      sh 'docker-compose down'
+    end
 
-desc 'Gets you into container\'s rails app console.'
-task :c do
-  sh 'docker-compose exec app rails console'
-end
+    desc 'Runs dc down then dc up. Basically a nice reset for running the app locally.'
+    task :r do
+      sh 'docker-compose down'
+      sh 'docker-compose up --remove-orphans'
+    end
 
+    desc 'Gets you into the docker container bash prompt. Handy when you need to run a lot of commands.'
+    task :sh do
+      sh 'docker exec -it writing-web-app_app_1 /bin/sh'
+    end
+
+    desc 'Gets you into container\'s rails app console.'
+    task :c do
+      sh 'docker-compose exec app rails console'
+    end
+end
