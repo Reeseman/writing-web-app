@@ -1,6 +1,6 @@
 <template>
   <div id="UserDashboard.vue" class="dashboard">
-    <base-sidenav @eventname="updateTab" />
+    <base-sidenav @eventname="updateTab" :tab="tab" />
     <div class="main">
       <contacts v-show="tab == 'Contacts'" />
       <my-writs v-show="tab == 'My Writs'" />
@@ -23,7 +23,7 @@
     data: function() {
       return {
         user: {},
-        tab: 'My Writs',
+        tab: JSON.parse(this.$cookie.get('session')).tab || 'My Writs',
       };
     },
     components: {
@@ -36,6 +36,9 @@
     methods: {
       updateTab(tabName) {
         this.tab = tabName;
+        var session = JSON.parse(this.$cookie.get('session'));
+        session.tab = tabName;
+        this.$cookie.set('session', JSON.stringify(session));
       }
     },
     beforeCreate() {

@@ -3,4 +3,7 @@ Rails.application.routes.draw do
   root :to => 'application#index'
 
   get 'user_data', to: 'users#user_data'
+
+  get '/connections', to: 'connections#show'
+  get '/make_connection', to: 'connections#make_connection'
 end

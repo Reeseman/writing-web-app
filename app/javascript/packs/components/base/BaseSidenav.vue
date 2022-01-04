@@ -1,25 +1,25 @@
 <template>
   <div class="sidenav">
     <h2 class="logo">Collabowrite</h2>
-    <div class="ctaContainer" v-on:click="updateTab('My Writs')">
+    <div class="ctaContainer" v-on:click="updateTab('My Writs')" v-bind:class="{ active: tab == 'My Writs' }">
       <icon-base icon-name="papers" :icon-color="iconColor">
         <icon-papers />
       </icon-base>
       <div>My Writs</div>
     </div>
-    <div class="ctaContainer" v-on:click="updateTab('New Game')">
+    <div class="ctaContainer" v-on:click="updateTab('New Game')" v-bind:class="{ active: tab == 'New Game' }">
       <icon-base icon-name="write" :icon-color="iconColor">
         <icon-write />
       </icon-base>
       <div>New Game</div>
     </div>
-    <div class="ctaContainer" v-on:click="updateTab('Contacts')">
+    <div class="ctaContainer" v-on:click="updateTab('Contacts')" v-bind:class="{ active: tab == 'Contacts' }">
       <icon-base icon-name="people" :icon-color="iconColor">
         <icon-people />
       </icon-base>
       <div>Contacts</div>
     </div>
-    <div class="ctaContainer" v-on:click="updateTab('Settings')">
+    <div class="ctaContainer" v-on:click="updateTab('Settings')" v-bind:class="{ active: tab == 'Settings' }">
       <icon-base icon-name="gear" :icon-color="iconColor">
         <icon-gear />
       </icon-base>
@@ -45,9 +45,15 @@
 
   export default {
     name: 'BaseSidenav',
+    props: {
+      tab: {
+        type: String,
+        required: true
+      },
+    },
     data: function() {
       return {
-        iconColor: colors.offWhite
+        iconColor: colors.offWhite,
       };
     },
     components: {
@@ -105,6 +111,10 @@
     font-size: 18px;
     color: $offWhite;
     display: inline-block;
+  }
+
+  .active {
+    background-color: $darkestBlue;
   }
 
   .ctaContainer:hover {

@@ -28,6 +28,14 @@ namespace :db do
   task :rb do
     sh 'docker-compose exec app rails db:rollback'
   end
+
+  task :c do
+    sh 'docker exec -it writing-web-app_database_1 /bin/sh'
+  end
+
+  task :s do
+    sh 'docker-compose exec app rake db:seed'
+  end
 end
 
 namespace :app do
@@ -55,5 +63,10 @@ namespace :app do
     desc 'Gets you into container\'s rails app console.'
     task :c do
       sh 'docker-compose exec app rails console'
+    end
+
+    desc 'Runs "rake routes"'
+    task :routes do
+      sh 'docker-compose exec app rails routes'
     end
 end
