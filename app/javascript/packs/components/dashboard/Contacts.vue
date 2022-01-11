@@ -1,6 +1,7 @@
 <template>
   <div id="Contacts.vue">
     <p v-show="this.error.length > 0" style="color: red;">{{this.error}}</p>
+    <p v-show="this.success.length > 0" style="color: green;">{{this.success}}</p>
     <h3>Add New Contact</h3>
     <form v-on:submit.prevent="create">
       <input v-model="form.email" type="text" placeholder="Email" @change="clearError" />
@@ -48,6 +49,7 @@
         contacts: [],
         outboundContacts: [],
         error: '',
+        success: '',
         form: {
           'email': '',
         }
@@ -59,16 +61,32 @@
     methods: {
       create() {
         const fromUid = JSON.parse(this.$cookie.get('session'))['user']['id'];
-        const body = { email: this.form.email, fromUid: fromUid };
         this.$http.get(`/make_connection?fromUid=${fromUid}&email=${this.form.email}`)
           .then(response => {
             this.outboundContacts.push(response.data);
           })
-          .catch(error => console.log(error))
-          // .catch(error => this.error = '' + error)
+          .catch(error => {
+            if (error.response) {
+              this.error = error.response.data.error;
+            } else {
+              this.error = 'Internal server error: unknown';
+            }
+          });
+      },
+      delete() {
+        const fromUid = JSON.parse(this.$cookie.get('session'))['user']['id'];
+        this.$http.get(`/delete_connection?fromUid=${fromUid}&email=${this.form.email}`)
+          .then(response => {
+          })
+          .catch(error => {
+            this.error = 'No user exists with that email.'
+          });
       },
       clearError() {
         this.error = '';
+      },
+      clearSuccess() {
+        this.success = '';
       },
     },
     beforeCreate() {

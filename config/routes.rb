@@ -6,4 +6,5 @@ Rails.application.routes.draw do
 
   get '/connections', to: 'connections#show'
   get '/make_connection', to: 'connections#make_connection'
+  get '/delete_connection', to: 'connections#delete_connection'
 end
