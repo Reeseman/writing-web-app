@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 # Add your own tasks in files placed in lib/tasks ending in .rake,
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
-require_relative "config/application"
+require_relative 'config/application'
 
 Rails.application.load_tasks
 
@@ -39,34 +41,39 @@ namespace :db do
 end
 
 namespace :app do
-    desc 'Bring the app up'
-    task :up do
-      sh 'docker-compose up --remove-orphans'
-    end
+  desc 'Bring the app up'
+  task :up do
+    sh 'docker-compose up --remove-orphans'
+  end
 
-    desc 'Tear the app down'
-    task :down do
-      sh 'docker-compose down'
-    end
+  desc 'Tear the app down'
+  task :down do
+    sh 'docker-compose down'
+  end
 
-    desc 'Runs dc down then dc up. Basically a nice reset for running the app locally.'
-    task :r do
-      sh 'docker-compose down'
-      sh 'docker-compose up --remove-orphans'
-    end
+  desc 'Runs dc down then dc up. Basically a nice reset for running the app locally.'
+  task :r do
+    sh 'docker-compose down'
+    sh 'docker-compose up --remove-orphans'
+  end
 
-    desc 'Gets you into the docker container bash prompt. Handy when you need to run a lot of commands.'
-    task :sh do
-      sh 'docker exec -it writing-web-app_app_1 /bin/sh'
-    end
+  desc 'Gets you into the docker container bash prompt. Handy when you need to run a lot of commands.'
+  task :sh do
+    sh 'docker exec -it writing-web-app_app_1 /bin/sh'
+  end
 
-    desc 'Gets you into container\'s rails app console.'
-    task :c do
-      sh 'docker-compose exec app rails console'
-    end
+  desc 'Gets you into container\'s rails app console.'
+  task :c do
+    sh 'docker-compose exec app rails console'
+  end
 
-    desc 'Runs "rake routes"'
-    task :routes do
-      sh 'docker-compose exec app rails routes'
-    end
+  desc 'Runs "rake routes"'
+  task :routes do
+    sh 'docker-compose exec app rails routes'
+  end
+
+  desc 'Runs rubocop'
+  task :rubocop do
+    sh 'docker-compose exec app rubocop'
+  end
 end
