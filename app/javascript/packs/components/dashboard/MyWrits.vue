@@ -5,12 +5,12 @@
 </template>
 
 <script>
-   export default {
-      name: 'MyWrits',
-      // props: {
-      //    cta: String,
-      // }
-   };
+export default {
+  name: 'MyWrits',
+  // props: {
+  //    cta: String,
+  // }
+};
 </script>
 
 <style lang="scss" scoped>

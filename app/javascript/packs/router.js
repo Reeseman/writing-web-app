@@ -1,11 +1,11 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import SignIn from './components/singleinstance/sessions/SignIn'
-import SignUp from './components/singleinstance/sessions/SignUp'
-import ForgotPassword from './components/singleinstance/sessions/ForgotPassword'
-import UserDashboard from './components/singleinstance/UserDashboard'
+import Vue from 'vue';
+import Router from 'vue-router';
+import SignIn from './components/singleinstance/sessions/SignIn';
+import SignUp from './components/singleinstance/sessions/SignUp';
+import ForgotPassword from './components/singleinstance/sessions/ForgotPassword';
+import UserDashboard from './components/singleinstance/UserDashboard';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -30,4 +30,4 @@ export default new Router({
       component: UserDashboard
     },
   ]
-})
+});

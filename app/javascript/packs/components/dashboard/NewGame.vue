@@ -24,12 +24,12 @@
 </template>
 
 <script>
-   export default {
-      name: 'NewGame',
-      // props: {
-      //    cta: String,
-      // }
-   };
+export default {
+  name: 'NewGame',
+  // props: {
+  //    cta: String,
+  // }
+};
 </script>
 
 <style lang="scss" scoped>

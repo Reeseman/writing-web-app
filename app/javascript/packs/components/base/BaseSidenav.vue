@@ -1,32 +1,68 @@
 <template>
   <div class="sidenav">
-    <h2 class="logo">Collabowrite</h2>
-    <div class="ctaContainer" v-on:click="updateTab('My Writs')" v-bind:class="{ active: tab == 'My Writs' }">
-      <icon-base icon-name="papers" :icon-color="iconColor">
+    <h2 class="logo">
+      Collabowrite
+    </h2>
+    <div
+      class="ctaContainer"
+      :class="{ active: tab == 'My Writs' }"
+      @click="updateTab('My Writs')"
+    >
+      <icon-base
+        icon-name="papers"
+        :icon-color="iconColor"
+      >
         <icon-papers />
       </icon-base>
       <div>My Writs</div>
     </div>
-    <div class="ctaContainer" v-on:click="updateTab('New Game')" v-bind:class="{ active: tab == 'New Game' }">
-      <icon-base icon-name="write" :icon-color="iconColor">
+    <div
+      class="ctaContainer"
+      :class="{ active: tab == 'New Game' }"
+      @click="updateTab('New Game')"
+    >
+      <icon-base
+        icon-name="write"
+        :icon-color="iconColor"
+      >
         <icon-write />
       </icon-base>
       <div>New Game</div>
     </div>
-    <div class="ctaContainer" v-on:click="updateTab('Contacts')" v-bind:class="{ active: tab == 'Contacts' }">
-      <icon-base icon-name="people" :icon-color="iconColor">
+    <div
+      class="ctaContainer"
+      :class="{ active: tab == 'Contacts' }"
+      @click="updateTab('Contacts')"
+    >
+      <icon-base
+        icon-name="people"
+        :icon-color="iconColor"
+      >
         <icon-people />
       </icon-base>
       <div>Contacts</div>
     </div>
-    <div class="ctaContainer" v-on:click="updateTab('Settings')" v-bind:class="{ active: tab == 'Settings' }">
-      <icon-base icon-name="gear" :icon-color="iconColor">
+    <div
+      class="ctaContainer"
+      :class="{ active: tab == 'Settings' }"
+      @click="updateTab('Settings')"
+    >
+      <icon-base
+        icon-name="gear"
+        :icon-color="iconColor"
+      >
         <icon-gear />
       </icon-base>
       <div>Settings</div>
     </div>
-    <div class="ctaContainer" v-on:click.prevent="logout">
-      <icon-base icon-name="logout" :icon-color="iconColor">
+    <div
+      class="ctaContainer"
+      @click.prevent="logout"
+    >
+      <icon-base
+        icon-name="logout"
+        :icon-color="iconColor"
+      >
         <icon-logout />
       </icon-base>
       <div>Logout</div>
@@ -35,52 +71,52 @@
 </template>
 
 <script>
-  import IconBase from 'components/icons/IconBase'
-  import IconGear from 'components/icons/IconGear'
-  import IconLogout from 'components/icons/IconLogout'
-  import IconPapers from 'components/icons/IconPapers'
-  import IconPeople from 'components/icons/IconPeople'
-  import IconWrite from 'components/icons/IconWrite'
-  import colors from 'application.scss'
+import IconBase from 'components/icons/IconBase';
+import IconGear from 'components/icons/IconGear';
+import IconLogout from 'components/icons/IconLogout';
+import IconPapers from 'components/icons/IconPapers';
+import IconPeople from 'components/icons/IconPeople';
+import IconWrite from 'components/icons/IconWrite';
+import colors from 'application.scss';
 
-  export default {
-    name: 'BaseSidenav',
-    props: {
-      tab: {
-        type: String,
-        required: true
-      },
+export default {
+  name: 'BaseSidenav',
+  components: {
+    IconBase,
+    IconGear,
+    IconLogout,
+    IconPapers,
+    IconPeople,
+    IconWrite,
+  },
+  props: {
+    tab: {
+      type: String,
+      required: true
     },
-    data: function() {
-      return {
-        iconColor: colors.offWhite,
-      };
-    },
-    components: {
-      IconBase,
-      IconGear,
-      IconLogout,
-      IconPapers,
-      IconPeople,
-      IconWrite,
-    },
-    methods: {
-      logout() {
-        this.$http.delete('/auth/sign_out', { })
-          .then(response => {
-            this.$cookie.set('session', null);
-            this.$store.commit('auth', null)
-            this.$store.commit('user', null)
+  },
+  data: function() {
+    return {
+      iconColor: colors.offWhite,
+    };
+  },
+  methods: {
+    logout() {
+      this.$http.delete('/auth/sign_out', { })
+        .then(() => {
+          this.$cookie.set('session', null);
+          this.$store.commit('auth', null);
+          this.$store.commit('user', null);
 
-            this.$router.push({ name: 'login' })
-          })
-          .catch(error => console.log(error))
-      },
-      updateTab(tabName) {
-        this.$emit('eventname', tabName);
-      }
+          this.$router.push({ name: 'login' });
+        })
+        .catch(error => console.log(error));
     },
-  };
+    updateTab(tabName) {
+      this.$emit('eventname', tabName);
+    }
+  },
+};
 </script>
 
 <style lang="scss" scoped>

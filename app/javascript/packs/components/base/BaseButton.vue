@@ -1,16 +1,24 @@
 <template>
   <div id="BaseButton.vue">
-    <button type="submit" class="btn">{{ cta }}</button>
+    <button
+      type="submit"
+      class="btn"
+    >
+      {{ cta }}
+    </button>
   </div>
 </template>
 
 <script>
-   export default {
-      name: 'BaseButton',
-      props: {
-         cta: String,
-      }
-   };
+export default {
+  name: 'BaseButton',
+  props: {
+    cta: {
+      type: String,
+      default: '',
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

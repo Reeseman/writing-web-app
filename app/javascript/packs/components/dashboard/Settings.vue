@@ -1,20 +1,20 @@
 <template>
-  <div id="NewGame.vue">
-    <span>Your email: {{ this.user.email }}</span>
+  <div id="Setting.vue">
+    <span>Your email: {{ user.email }}</span>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'Settings',
+export default {
+  name: 'Settings',
 
-    props: {
-      user: {
-        type: Object,
-        required: true
-      }, 
-    }
-  };
+  props: {
+    user: {
+      type: Object,
+      required: true
+    }, 
+  }
+};
 </script>
 
 <style lang="scss" scoped>
