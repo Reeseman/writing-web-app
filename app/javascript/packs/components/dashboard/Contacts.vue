@@ -1,19 +1,13 @@
 <template>
   <div id="Contacts.vue">
-    <p
-      v-show="error.length > 0"
-      style="color: red;"
-    >
+    <p v-show="error.length > 0" class="error">
       {{ error }}
     </p>
-    <p
-      v-show="success.length > 0"
-      style="color: green;"
-    >
+    <p v-show="success.length > 0" class="success">
       {{ success }}
     </p>
     <h3>Add New Contact</h3>
-    <form @submit.prevent="create">
+    <form>
       <input
         v-model="form.email"
         type="text"
@@ -21,17 +15,14 @@
         @change="clearError"
       >
       <div style="display: inline-block; width: 200px;">
-        <BaseButton cta="Request Contact" />
+        <BaseButton cta="Request Contact" :onClick="create" />
       </div>
     </form>
 
     <div v-show="contacts.length > 0">
       <h3>Contacts</h3>
       <ul>
-        <li
-          v-for="contact in contacts"
-          :key="contact.id"
-        >
+        <li v-for="contact in contacts" :key="contact.id">
           {{ contact.user_id_1 }}, {{ contact.user_id_2 }}
         </li>
       </ul>
@@ -52,10 +43,7 @@
     <div v-show="outboundContacts.length > 0">
       <h3>Pending Outbound Requests</h3>
       <ul>
-        <li
-          v-for="contact in outboundContacts"
-          :key="contact.id"
-        >
+        <li v-for="contact in outboundContacts" :key="contact.id">
           {{ contact.user_id_1 }}, {{ contact.user_id_2 }}
         </li>
       </ul>
@@ -106,10 +94,11 @@ export default {
       this.$http.get(`/make_connection?fromUid=${fromUid}&email=${this.form.email}`)
         .then(response => {
           this.outboundContacts.push(response.data);
+          this.success = 'Request sent';
         })
         .catch(error => {
           if (error.response) {
-            this.error = error.response.data.error;
+            this.error = error.response.data.error || 'Internal server error: Unknown';
           } else {
             this.error = 'Internal server error: unknown';
           }
@@ -129,8 +118,6 @@ export default {
     },
     clearError() {
       this.error = '';
-    },
-    clearSuccess() {
       this.success = '';
     },
   },
@@ -158,5 +145,13 @@ export default {
       border: solid $darkOrange 1px !important;
       outline-offset: 0px !important;
       outline: none !important;
+  }
+
+  .error {
+    color: $darkOrange;
+  }
+
+  .success {
+    color: $medBlue;
   }
 </style>

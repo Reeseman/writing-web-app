@@ -1,9 +1,6 @@
 <template>
   <div id="BaseButton.vue">
-    <button
-      type="submit"
-      class="btn"
-    >
+    <button @click="onClick" class="btn">
       {{ cta }}
     </button>
   </div>
@@ -15,8 +12,12 @@ export default {
   props: {
     cta: {
       type: String,
-      default: '',
-    }
+      required: true,
+    },
+    onClick: {
+      type: Function,
+      required: true,
+    },
   }
 };
 </script>

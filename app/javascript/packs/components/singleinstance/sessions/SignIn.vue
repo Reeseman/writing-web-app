@@ -1,8 +1,5 @@
 <template>
-  <div
-    id="SignIn.vue"
-    class="container"
-  >
+  <div id="SignIn.vue" class="container">
     <div class="signupContainer">
       <h1 class="title">
         Sign in
@@ -31,7 +28,7 @@
             placeholder="Password"
           >
         </div>
-        <BaseButton cta="Sign In" />
+        <BaseButton cta="Sign In" :onClick="signin" />
       </form>
       <table class="redirectLinks">
         <tbody>

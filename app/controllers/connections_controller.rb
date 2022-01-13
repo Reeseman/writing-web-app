@@ -6,7 +6,7 @@ class ConnectionsController < ProtectedBySessionsController
     bad_request = bad_request(user, from_uid)
     return render json: { error: bad_request }, status: 400 unless bad_request.nil?
 
-    connection = Connection.create(user_id_1: from_uid, user_id_2: to_uid)
+    connection = Connection.create(user_id_1: from_uid, user_id_2: user.id)
     render json: connection, status: 200
   end
 

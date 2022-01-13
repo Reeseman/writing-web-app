@@ -1,20 +1,11 @@
 <template>
-  <div
-    id="UserDashboard.vue"
-    class="dashboard"
-  >
-    <base-sidenav
-      :tab="tab"
-      @eventname="updateTab"
-    />
+  <div id="UserDashboard.vue" class="dashboard">
+    <base-sidenav :tab="tab" @eventname="updateTab"/>
     <div class="main">
       <contacts v-show="tab == 'Contacts'" />
       <my-writs v-show="tab == 'My Writs'" />
       <new-game v-show="tab == 'New Game'" />
-      <settings
-        v-show="tab == 'Settings'"
-        :user="user"
-      />
+      <settings v-show="tab == 'Settings'" :user="user" />
     </div>
   </div>
 </template>

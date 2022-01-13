@@ -1,8 +1,5 @@
 <template>
-  <div
-    id="SignUp.vue"
-    class="container"
-  >
+  <div id="SignUp.vue" class="container">
     <div class="signupContainer">
       <h1 class="title">
         Sign Up
@@ -39,7 +36,7 @@
             placeholder="Password Confirmation"
           >
         </div>
-        <BaseButton cta="Register" />
+        <BaseButton cta="Register" :onClick="signup" />
 
         <div class="redirectLinks">
           <span>Already have an account? </span>
