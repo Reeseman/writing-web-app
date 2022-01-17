@@ -1,19 +1,28 @@
 <template>
   <div id="Contacts.vue">
-    <p v-show="this.error.length > 0" style="color: red;">{{this.error}}</p>
-    <p v-show="this.success.length > 0" style="color: green;">{{this.success}}</p>
+    <p v-show="error.length > 0" class="error">
+      {{ error }}
+    </p>
+    <p v-show="success.length > 0" class="success">
+      {{ success }}
+    </p>
     <h3>Add New Contact</h3>
-    <form v-on:submit.prevent="create">
-      <input v-model="form.email" type="text" placeholder="Email" @change="clearError" />
+    <form>
+      <input
+        v-model="form.email"
+        type="text"
+        placeholder="Email"
+        @change="clearError"
+      >
       <div style="display: inline-block; width: 200px;">
-        <BaseButton cta="Request Contact"/>
+        <BaseButton cta="Request Contact" :onClick="create" />
       </div>
     </form>
 
     <div v-show="this.contacts.length > 0">
       <h3>Contacts</h3>
       <ul>
-        <li v-for="contact in this.contacts" :key="contact.id">
+        <li v-for="contact in contacts" :key="contact.id">
           {{ contact.user_id_1 }}, {{ contact.user_id_2 }}
         </li>
       </ul>
@@ -31,7 +40,7 @@
     <div v-show="this.outboundContacts.length > 0">
       <h3>Pending Outbound Requests</h3>
       <ul>
-        <li v-for="contact in this.outboundContacts" :key="contact.id">
+        <li v-for="contact in outboundContacts" :key="contact.id">
           {{ contact.user_id_1 }}, {{ contact.user_id_2 }}
         </li>
       </ul>
@@ -64,10 +73,11 @@
         this.$http.get(`/make_connection?fromUid=${fromUid}&email=${this.form.email}`)
           .then(response => {
             this.outboundContacts.push(response.data);
+            this.success = 'Request sent';
           })
           .catch(error => {
             if (error.response) {
-              this.error = error.response.data.error;
+              this.error = error.response.data.error || 'Internal server error: Unknown';
             } else {
               this.error = 'Internal server error: unknown';
             }
@@ -76,10 +86,13 @@
       delete() {
         const fromUid = JSON.parse(this.$cookie.get('session'))['user']['id'];
         this.$http.get(`/delete_connection?fromUid=${fromUid}&email=${this.form.email}`)
-          .then(response => {
-          })
+          .then()
           .catch(error => {
-            this.error = 'No user exists with that email.'
+            if (error.response) {
+              this.error = error.response.data.error;
+            } else {
+              this.error = 'Internal server error: unknown';
+            }
           });
       },
       clearError() {
@@ -105,9 +118,9 @@
             }
           }
         })
-        .catch(error => console.log(error))
+      .catch(error => console.log(error));
     },
-   };
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -131,5 +144,13 @@
       border: solid $darkOrange 1px !important;
       outline-offset: 0px !important;
       outline: none !important;
+  }
+
+  .error {
+    color: $darkOrange;
+  }
+
+  .success {
+    color: $medBlue;
   }
 </style>

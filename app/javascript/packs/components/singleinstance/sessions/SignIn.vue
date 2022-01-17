@@ -2,7 +2,7 @@
   <div id="SignIn.vue" class="container">
     <div class="signupContainer">
       <h1 class="title">Sign in</h1>
-      <form @submit.prevent="signin">
+      <form>
         <div v-if="error">{{ error }}</div>
 
         <div class="inputContainer">
@@ -14,7 +14,7 @@
           <label for="password">Password</label>
           <input type="password" v-model="password" id="password" placeholder="Password">
         </div>
-        <BaseButton cta="Sign In"/>
+        <BaseButton cta="Sign In" :onClick="signin"/>
       </form>
       <table class="redirectLinks">
         <tbody>

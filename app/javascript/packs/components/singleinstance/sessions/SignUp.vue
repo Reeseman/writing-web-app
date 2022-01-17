@@ -2,12 +2,12 @@
   <div id="SignUp.vue" class="container">
     <div class="signupContainer">
       <h1 class="title">Sign Up</h1>
-      <form @submit.prevent="signup">
+      <form>
         <div v-if="errorMsg">{{ errorMsg }}</div>
 
         <div class="inputContainer">
           <label for="email">E-mail Address</label>
-          <input type="email" v-model="email" id="email" placeholder="andy@web-crunch.com">
+          <input type="email" v-model="email" id="email" placeholder="Email">
         </div>
         <div class="inputContainer">
           <label for="password">Password</label>
@@ -17,7 +17,7 @@
           <label for="passwordConfirmation">Password Confirmation</label>
           <input type="password" v-model="passwordConfirmation" id="passwordConfirmation" placeholder="Password Confirmation">
         </div>
-        <BaseButton cta="Register"/>
+        <BaseButton cta="Register" :onClick="signup"/>
 
         <div class="redirectLinks">
           <span>Already have an account? </span>
@@ -29,69 +29,69 @@
 </template>
 
 <script>
-  import BaseButton from 'components/base/BaseButton'
-  import { pick } from 'lodash'
+import BaseButton from 'components/base/BaseButton';
+import { pick } from 'lodash';
 
-  export default {
-    name: 'SignUp',
-    data () {
-      return {
-        email: '',
-        password: '',
-        passwordConfirmation: '',
-        errorMsg: ''
+export default {
+  name: 'SignUp',
+  data () {
+    return {
+      email: '',
+      password: '',
+      passwordConfirmation: '',
+      errorMsg: ''
+    }
+  },
+  components: {
+    BaseButton,
+  },
+  methods: {
+    signup() {
+      if (this.isValidFormSubmit()) {
+        this.$http.post('/auth', { email: this.email, password: this.password, confirm_success_url: '/' })
+          .then(this.handleResponse)
+          .catch(this.handleError)
       }
     },
-    components: {
-      BaseButton,
-    },
-    methods: {
-      signup() {
-        if (this.isValidFormSubmit()) {
-          this.$http.post('/auth', { email: this.email, password: this.password, confirm_success_url: '/' })
-            .then(this.handleResponse)
-            .catch(this.handleError)
-        }
-      },
-      handleResponse(response) {
-        // Again commits the relevant headers to the store.
-        const authHeaders = pick(response.headers,
-                                 ["access-token","client","expiry","uid","token-type"])
-        this.$store.commit('auth', authHeaders)
+    handleResponse(response) {
+      // Again commits the relevant headers to the store.
+      const authHeaders = pick(response.headers,
+                               ["access-token","client","expiry","uid","token-type"])
+      this.$store.commit('auth', authHeaders)
 
-        // response.data.data is an object containing public information about the current user.
-        // This is useful to keep track of so that your app can display the current user's
-        // email/username somewhere.
-        this.$store.commit('user', response.data.data)
+      // response.data.data is an object containing public information about the current user.
+      // This is useful to keep track of so that your app can display the current user's
+      // email/username somewhere.
+      this.$store.commit('user', response.data.data)
 
-        // Write both the response headers and the current user data to the cookie.
-        const contents = {
-          tokens: authHeaders,
-          user: response.data.data
-        }
-
-        this.$cookie.set('session',
-                         JSON.stringify(contents),
-                         { expires: '14D' })
-
-        // Go home or wherever the user originally wanted to go
-        this.$router.push({ name: 'dashboard' })
-      },
-      handleError(error) {
-        this.errorMsg = error
-        console.log(error)
-      },
-      isValidFormSubmit() {
-        this.errorMsg = ''
-        if (this.password !== this.passwordConfirmation) {
-          this.errorMsg = 'Passwords must match'
-        } else if (this.password.length < 8) {
-          this.errorMsg = 'Password must be at least 8 characters long'
-        }
-        return this.errorMsg === '';
+      // Write both the response headers and the current user data to the cookie.
+      const contents = {
+        tokens: authHeaders,
+        user: response.data.data
       }
+
+      this.$cookie.set('session',
+                       JSON.stringify(contents),
+                       { expires: '14D' })
+
+      // Go home or wherever the user originally wanted to go
+      this.$router.push({ name: 'dashboard' })
+    },
+    handleError(error) {
+      this.errorMsg = error
+      console.log(error)
+    },
+    isValidFormSubmit() {
+      this.errorMsg = ''
+      if (this.password !== this.passwordConfirmation) {
+        this.errorMsg = 'Passwords must match'
+      } else if (this.password.length < 8) {
+        this.errorMsg = 'Password must be at least 8 characters long'
+      }
+      return this.errorMsg === '';
     }
   }
+};
 </script>
 
 <style lang="scss" scoped>
