@@ -1,5 +1,4 @@
 import Vue from 'vue'
-// import VueCookies from 'vue-cookies'
 import vueCookie from 'vue-cookie'
 import status from 'http-status'
 import axios from 'axios'
@@ -9,8 +8,6 @@ import router from './router'
 import store from './store'
 
 import App from '../app.vue'
-
-// Vue.use(vueCookie)
 
 Vue.config.productionTip = false
 
@@ -35,7 +32,7 @@ Vue.prototype.$http.interceptors.response.use((response) => {
     // The object we are storing in session looks like this:
     // {'tokens': {'access-token': 'foo', ...}, 'user': {'email': 'foo@bar.com', ...}}
     // so that is why we are extracting and modifying, so that the `user` key isn't blown away.
-    if (session) {
+    if (session && JSON.parse(session)) {
       var session = JSON.parse(session)
       session['tokens'] = authHeaders
 
@@ -61,6 +58,7 @@ Vue.prototype.$http.interceptors.request.use((config) => {
 
   // object that holds configuration of the request that's about to be made
   config.headers = headers
+  // console.log(headers);
   return config
 })
 
@@ -71,29 +69,4 @@ document.addEventListener('DOMContentLoaded', () => {
     render: h => h(App)
   }).$mount()
   document.body.appendChild(app.$el)
-
-  console.log(app)
 })
-
-
-
-
-
-
-
-// figure this out later, it currently causes some console error...
-// import TurbolinksAdapter from 'vue-turbolinks'
-
-// Vue.use(TurbolinksAdapter)
-
-// document.addEventListener('turbolinks:load', () => {
-//   const app = new Vue({
-//     el: '#hello',
-//     data: () => {
-//       return {
-//         message: "Can you say hello?"
-//       }
-//     },
-//     components: { App }
-//   })
-// })
