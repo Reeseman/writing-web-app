@@ -23,7 +23,8 @@
       <h3>Contacts</h3>
       <ul>
         <li v-for="contact in contacts" :key="contact.id">
-          {{ contact.user_id_1 }}, {{ contact.user_id_2 }}
+          You have been friends with {{ contact.email }} since {{ formatDate(contact.updated_at) }}.
+          <button>Remove Contact</button>
         </li>
       </ul>
     </div>
@@ -31,8 +32,11 @@
     <div v-show="this.inboundContacts.length > 0">
       <h3>Pending Inbound Requests</h3>
       <ul>
-        <li v-for="contact in this.contacts" :key="contact.id">
-          {{ contact.user_id_1 }}, {{ contact.user_id_2 }}
+        <li v-for="contact in this.inboundContacts" :key="contact.id">
+          A user with email {{ contact.email }} has requested that you make contact. 
+          They have been waiting for your response since {{ formatDate(contact.updated_at) }}.
+          <button>Accept Request</button>
+          <button>Decline Request</button>
         </li>
       </ul>
     </div>
@@ -41,7 +45,8 @@
       <h3>Pending Outbound Requests</h3>
       <ul>
         <li v-for="contact in outboundContacts" :key="contact.id">
-          {{ contact.user_id_1 }}, {{ contact.user_id_2 }}
+          You requested {{ contact.email }}. Waiting on a response since {{ formatDate(contact.updated_at) }}.
+          <button @click="deleteRequest(contact['email'])">Delete Request</button>
         </li>
       </ul>
     </div>
@@ -74,6 +79,7 @@
           .then(response => {
             this.outboundContacts.push(response.data);
             this.success = 'Request sent';
+            this.error = '';
           })
           .catch(error => {
             if (error.response) {
@@ -83,10 +89,13 @@
             }
           });
       },
-      delete() {
+      deleteRequest(email) {
         const fromUid = JSON.parse(this.$cookie.get('session'))['user']['id'];
-        this.$http.get(`/delete_connection?fromUid=${fromUid}&email=${this.form.email}`)
-          .then()
+        this.$http.get(`/delete_connection?fromUid=${fromUid}&email=${email}`)
+          .then(response => {
+            this.success = 'Outbound request deleted';
+            this.error = '';
+          })
           .catch(error => {
             if (error.response) {
               this.error = error.response.data.error;
@@ -101,6 +110,9 @@
       clearSuccess() {
         this.success = '';
       },
+      formatDate(date) {
+        return date.split('T')[0];
+      }
     },
     beforeCreate() {
       this.$http.get(`/connections?token=${this.$cookie.get('session')}`, { })
@@ -110,7 +122,8 @@
             if (contacts[i].accepted) {
               this.contacts.push(contacts[i]);
             } else {
-              if (JSON.parse(this.$cookie.get('session'))['user']['id'] === contacts[i].user_id_1) {
+              const currentUid = JSON.parse(this.$cookie.get('session'))['user']['id'];
+              if (currentUid === contacts[i].user_id_1) {
                 this.outboundContacts.push(contacts[i]);
               } else {
                 this.inboundContacts.push(contacts[i]);
