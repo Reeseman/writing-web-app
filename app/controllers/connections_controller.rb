@@ -6,8 +6,9 @@ class ConnectionsController < ProtectedBySessionsController
     bad_request = bad_request(user, from_uid)
     return render json: { error: bad_request }, status: 400 unless bad_request.nil?
 
-    connection = Connection.create(user_id_1: from_uid, user_id_2: to_uid)
-    render json: connection, status: 200
+    connection_dto = Connection.create(user_id_1: from_uid, user_id_2: user.id).as_json
+    connection_dto.merge!(User.find(user.id).as_json)
+    render json: connection_dto, status: 200
   end
 
   def delete_connection
@@ -21,13 +22,20 @@ class ConnectionsController < ProtectedBySessionsController
     return render json: { error: 'That connection doesn\'t exist' }, status: 400 if connection.nil?
 
     connection.delete
-    render status: 200
+    render json: {}, status: 200
   end
 
   def show
     uid = JSON.parse(params[:token])['user']['id']
     connections = Connection.where(user_id_1: uid).or(Connection.where(user_id_2: uid)).to_a
-    render json: connections, status: 200
+    connections_dto = []
+    connections.each do |connection, index|
+      connection_dto = connection.as_json
+      other_user_id = connection_dto['user_id_1'] == uid ? connection.user_id_2 : connection.user_id_1
+      connection_dto.merge!(User.find(other_user_id).as_json)
+      connections_dto << connection_dto.except!('id', 'allow_password_change', 'provider', 'uid')
+    end
+    render json: connections_dto, status: 200
   end
 
   private
