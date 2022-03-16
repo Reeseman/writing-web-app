@@ -13,16 +13,24 @@ class ConnectionsController < ProtectedBySessionsController
 
   def delete_connection
     from_uid = params['fromUid'].to_i
-    email = params['email']
-    user = User.where(email: email).first
-    return render json: { error: 'Requested user does not exist' }, status: 400 if user.nil?
+    to_uid = params['toUid'].to_i
 
-    to_uid = user.id
     connection = get_existing_connection(from_uid, to_uid)
     return render json: { error: 'That connection doesn\'t exist' }, status: 400 if connection.nil?
 
     connection.delete
     render json: {}, status: 200
+  end
+
+  def accept_connection
+    from_uid = params['fromUid'].to_i
+    to_uid = params['toUid'].to_i
+
+    connection = get_existing_connection(from_uid, to_uid)
+    return render json: { error: 'That connection doesn\'t exist' }, status: 400 if connection.nil?
+
+    connection.update!(accepted: true)
+    head :ok
   end
 
   def show
@@ -41,8 +49,9 @@ class ConnectionsController < ProtectedBySessionsController
   private
 
   def get_existing_connection(from_uid, to_uid)
+    option_1 = Connection.where(user_id_1: from_uid, user_id_2: to_uid)
     option_2 = Connection.where(user_id_2: from_uid, user_id_1: to_uid)
-    Connection.where(user_id_1: from_uid, user_id_2: to_uid).or(option_2).first
+    option_1.or(option_2).first
   end
 
   def already_connected?(from_uid, to_uid)
