@@ -1,35 +1,42 @@
 <template>
   <div class="sidenav">
-    <h2 class="logo">Collabowrite</h2>
-    <div class="ctaContainer" v-on:click="updateTab('My Writs')" v-bind:class="{ active: tab == 'My Writs' }">
-      <icon-base icon-name="papers" :icon-color="iconColor">
-        <icon-papers />
-      </icon-base>
-      <div>My Writs</div>
-    </div>
-    <div class="ctaContainer" v-on:click="updateTab('New Game')" v-bind:class="{ active: tab == 'New Game' }">
-      <icon-base icon-name="write" :icon-color="iconColor">
-        <icon-write />
-      </icon-base>
-      <div>New Game</div>
-    </div>
-    <div class="ctaContainer" v-on:click="updateTab('Contacts')" v-bind:class="{ active: tab == 'Contacts' }">
-      <icon-base icon-name="people" :icon-color="iconColor">
-        <icon-people />
-      </icon-base>
-      <div>Contacts</div>
-    </div>
-    <div class="ctaContainer" v-on:click="updateTab('Settings')" v-bind:class="{ active: tab == 'Settings' }">
-      <icon-base icon-name="gear" :icon-color="iconColor">
-        <icon-gear />
-      </icon-base>
-      <div>Settings</div>
-    </div>
-    <div class="ctaContainer" v-on:click.prevent="logout">
-      <icon-base icon-name="logout" :icon-color="iconColor">
-        <icon-logout />
-      </icon-base>
-      <div>Logout</div>
+    <div class="mainCtas">
+      <h2 class="logo">Collabowrite</h2>
+      <div class="email">
+        {{ JSON.parse(this.$cookie.get('session')).user.email }}
+      </div>
+      <div class="ctaContainer" v-on:click="updateTab('My Writs')" v-bind:class="{ active: tab == 'My Writs' }">
+        <icon-base icon-name="papers" :icon-color="iconColor">
+          <icon-papers />
+        </icon-base>
+        <div>My Writs</div>
+      </div>
+      <div class="ctaContainer" v-on:click="updateTab('New Game')" v-bind:class="{ active: tab == 'New Game' }">
+        <icon-base icon-name="write" :icon-color="iconColor">
+          <icon-write />
+        </icon-base>
+        <div>New Game</div>
+      </div>
+      <div class="ctaContainer" v-on:click="updateTab('Contacts')" v-bind:class="{ active: tab == 'Contacts' }">
+        <icon-base icon-name="people" :icon-color="iconColor">
+          <icon-people />
+        </icon-base>
+        <div>Contacts</div>
+      </div>
+<!--       <div class="ctaContainer" v-on:click="updateTab('Settings')" v-bind:class="{ active: tab == 'Settings' }">
+        <icon-base icon-name="gear" :icon-color="iconColor">
+          <icon-gear />
+        </icon-base>
+        <div>Settings</div>
+      </div>
+ -->    </div>
+    <div class="footerCtas">
+      <div class="ctaContainer" v-on:click.prevent="logout">
+        <icon-base icon-name="logout" :icon-color="iconColor">
+          <icon-logout />
+        </icon-base>
+        <div>Logout</div>
+      </div>
     </div>
   </div>
 </template>
@@ -96,6 +103,20 @@
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 5px;
     background-color: $darkBlue;
+    margin: 0;
+    overflow-y: hidden;
+    .mainCtas {
+      min-height: calc(100vh - 4rem);
+      .email {
+        color: $offWhite;
+        margin-left: 17px;
+        padding-bottom: 16px;
+        margin-bottom: 10px;
+      }
+    }
+    .footerCtas {
+      height: 4rem;
+    }
   }
 
   .ctaContainer {
@@ -127,7 +148,8 @@
   }
 
   .logo {
-    padding: 6px 8px 16px 16px;
+    padding: 6px 8px 0 16px;
+    margin-bottom: 0;
     text-decoration: none;
     font-size: 22px;
     display: block;

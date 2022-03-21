@@ -45,7 +45,7 @@
       <h3>Pending Outbound Requests</h3>
       <ul>
         <li v-for="contact in outboundContacts" :key="contact.id">
-          You requested {{ contact.email }}. Waiting on a response since {{ formatDate(contact.updated_at) }}.
+          You requested {{ contact.email }} on {{ formatDate(contact.updated_at) }}. Awaiting response.
           <button @click="deleteOutboundRequest(contact['user_id_1'], contact['user_id_2'])">Delete Request</button>
         </li>
       </ul>
