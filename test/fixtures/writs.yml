@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  finished: false
+  started: false
+  max_entry_word_count: 1
+  min_entry_word_count: 1
+  max_total_word_count: 1
+  min_total_word_count: 1
+
+two:
+  title: MyString
+  finished: false
+  started: false
+  max_entry_word_count: 1
+  min_entry_word_count: 1
+  max_total_word_count: 1
+  min_total_word_count: 1

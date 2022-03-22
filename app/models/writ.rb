@@ -1,0 +1,2 @@
+class Writ < ApplicationRecord
+end

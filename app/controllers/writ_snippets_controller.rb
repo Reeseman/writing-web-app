@@ -1,0 +1,2 @@
+class WritSnippetsController < ApplicationController
+end

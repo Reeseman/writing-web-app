@@ -1,0 +1,250 @@
+                                          Table "public.connections"
+   Column   |              Type              | Collation | Nullable |                 Default
+------------+--------------------------------+-----------+----------+-----------------------------------------
+ id         | bigint                         |           | not null | nextval('connections_id_seq'::regclass)
+ user_id_1  | integer                        |           |          |
+ user_id_2  | integer                        |           |          |
+ accepted   | boolean                        |           |          | false
+ created_at | timestamp(6) without time zone |           | not null |
+ updated_at | timestamp(6) without time zone |           | not null |
+Indexes:
+    "connections_pkey" PRIMARY KEY, btree (id)
+    "index_connections_on_user_id_1" btree (user_id_1)
+    "index_connections_on_user_id_2" btree (user_id_2)
+Foreign-key constraints:
+    "fk_rails_32d5eabbcf" FOREIGN KEY (user_id_1) REFERENCES users(id) ON DELETE CASCADE
+    "fk_rails_eab5bdcbb4" FOREIGN KEY (user_id_2) REFERENCES users(id) ON DELETE CASCADE
+
+                     Sequence "public.connections_id_seq"
+  Type  | Start | Minimum |       Maximum       | Increment | Cycles? | Cache
+--------+-------+---------+---------------------+-----------+---------+-------
+ bigint |     1 |       1 | 9223372036854775807 |         1 | no      |     1
+Owned by: public.connections.id
+
+   Index "public.connections_pkey"
+ Column |  Type  | Key? | Definition
+--------+--------+------+------------
+ id     | bigint | yes  | id
+primary key, btree, for table "public.connections"
+
+Index "public.index_connections_on_user_id_1"
+  Column   |  Type   | Key? | Definition
+-----------+---------+------+------------
+ user_id_1 | integer | yes  | user_id_1
+btree, for table "public.connections"
+
+Index "public.index_connections_on_user_id_2"
+  Column   |  Type   | Key? | Definition
+-----------+---------+------+------------
+ user_id_2 | integer | yes  | user_id_2
+btree, for table "public.connections"
+
+          Index "public.index_users_on_confirmation_token"
+       Column       |       Type        | Key? |     Definition
+--------------------+-------------------+------+--------------------
+ confirmation_token | character varying | yes  | confirmation_token
+unique, btree, for table "public.users"
+
+      Index "public.index_users_on_email"
+ Column |       Type        | Key? | Definition
+--------+-------------------+------+------------
+ email  | character varying | yes  | email
+unique, btree, for table "public.users"
+
+           Index "public.index_users_on_reset_password_token"
+        Column        |       Type        | Key? |      Definition
+----------------------+-------------------+------+----------------------
+ reset_password_token | character varying | yes  | reset_password_token
+unique, btree, for table "public.users"
+
+  Index "public.index_users_on_uid_and_provider"
+  Column  |       Type        | Key? | Definition
+----------+-------------------+------+------------
+ uid      | character varying | yes  | uid
+ provider | character varying | yes  | provider
+unique, btree, for table "public.users"
+
+Index "public.index_writ_snippets_on_user_id"
+ Column  |  Type  | Key? | Definition
+---------+--------+------+------------
+ user_id | bigint | yes  | user_id
+btree, for table "public.writ_snippets"
+
+Index "public.index_writ_snippets_on_writ_id"
+ Column  |  Type  | Key? | Definition
+---------+--------+------+------------
+ writ_id | bigint | yes  | writ_id
+btree, for table "public.writ_snippets"
+
+Index "public.index_writ_snippets_on_writ_user_id"
+    Column    |  Type  | Key? |  Definition
+--------------+--------+------+--------------
+ writ_user_id | bigint | yes  | writ_user_id
+btree, for table "public.writ_snippets"
+
+Index "public.index_writ_users_on_user_id"
+ Column  |  Type  | Key? | Definition
+---------+--------+------+------------
+ user_id | bigint | yes  | user_id
+btree, for table "public.writ_users"
+
+Index "public.index_writ_users_on_writ_id"
+ Column  |  Type  | Key? | Definition
+---------+--------+------+------------
+ writ_id | bigint | yes  | writ_id
+btree, for table "public.writ_users"
+
+               Table "public.schema_migrations"
+ Column  |       Type        | Collation | Nullable | Default
+---------+-------------------+-----------+----------+---------
+ version | character varying |           | not null |
+Indexes:
+    "schema_migrations_pkey" PRIMARY KEY, btree (version)
+
+      Index "public.schema_migrations_pkey"
+ Column  |       Type        | Key? | Definition
+---------+-------------------+------+------------
+ version | character varying | yes  | version
+primary key, btree, for table "public.schema_migrations"
+
+                                                Table "public.users"
+         Column         |              Type              | Collation | Nullable |              Default
+------------------------+--------------------------------+-----------+----------+-----------------------------------
+ id                     | bigint                         |           | not null | nextval('users_id_seq'::regclass)
+ provider               | character varying              |           | not null | 'email'::character varying
+ uid                    | character varying              |           | not null | ''::character varying
+ encrypted_password     | character varying              |           | not null | ''::character varying
+ reset_password_token   | character varying              |           |          |
+ reset_password_sent_at | timestamp without time zone    |           |          |
+ allow_password_change  | boolean                        |           |          | false
+ remember_created_at    | timestamp without time zone    |           |          |
+ confirmation_token     | character varying              |           |          |
+ confirmed_at           | timestamp without time zone    |           |          |
+ confirmation_sent_at   | timestamp without time zone    |           |          |
+ unconfirmed_email      | character varying              |           |          |
+ nickname               | character varying              |           |          |
+ image                  | character varying              |           |          |
+ email                  | character varying              |           |          |
+ tokens                 | json                           |           |          |
+ created_at             | timestamp(6) without time zone |           | not null |
+ updated_at             | timestamp(6) without time zone |           | not null |
+ first_name             | character varying              |           |          | ''::character varying
+ last_name              | character varying              |           |          | ''::character varying
+Indexes:
+    "users_pkey" PRIMARY KEY, btree (id)
+    "index_users_on_confirmation_token" UNIQUE, btree (confirmation_token)
+    "index_users_on_email" UNIQUE, btree (email)
+    "index_users_on_reset_password_token" UNIQUE, btree (reset_password_token)
+    "index_users_on_uid_and_provider" UNIQUE, btree (uid, provider)
+Referenced by:
+    TABLE "connections" CONSTRAINT "fk_rails_32d5eabbcf" FOREIGN KEY (user_id_1) REFERENCES users(id) ON DELETE CASCADE
+    TABLE "writ_snippets" CONSTRAINT "fk_rails_b8fe337950" FOREIGN KEY (user_id) REFERENCES users(id)
+    TABLE "writ_users" CONSTRAINT "fk_rails_df08f20871" FOREIGN KEY (user_id) REFERENCES users(id)
+    TABLE "connections" CONSTRAINT "fk_rails_eab5bdcbb4" FOREIGN KEY (user_id_2) REFERENCES users(id) ON DELETE CASCADE
+
+                        Sequence "public.users_id_seq"
+  Type  | Start | Minimum |       Maximum       | Increment | Cycles? | Cache
+--------+-------+---------+---------------------+-----------+---------+-------
+ bigint |     1 |       1 | 9223372036854775807 |         1 | no      |     1
+Owned by: public.users.id
+
+      Index "public.users_pkey"
+ Column |  Type  | Key? | Definition
+--------+--------+------+------------
+ id     | bigint | yes  | id
+primary key, btree, for table "public.users"
+
+                                           Table "public.writ_snippets"
+    Column    |              Type              | Collation | Nullable |                  Default
+--------------+--------------------------------+-----------+----------+-------------------------------------------
+ id           | bigint                         |           | not null | nextval('writ_snippets_id_seq'::regclass)
+ ordinal      | integer                        |           |          |
+ user_id      | bigint                         |           | not null |
+ writ_id      | bigint                         |           | not null |
+ writ_user_id | bigint                         |           | not null |
+ content      | character varying              |           |          |
+ created_at   | timestamp(6) without time zone |           | not null |
+ updated_at   | timestamp(6) without time zone |           | not null |
+Indexes:
+    "writ_snippets_pkey" PRIMARY KEY, btree (id)
+    "index_writ_snippets_on_user_id" btree (user_id)
+    "index_writ_snippets_on_writ_id" btree (writ_id)
+    "index_writ_snippets_on_writ_user_id" btree (writ_user_id)
+Foreign-key constraints:
+    "fk_rails_248cd7284f" FOREIGN KEY (writ_id) REFERENCES writs(id)
+    "fk_rails_7e8e6212ca" FOREIGN KEY (writ_user_id) REFERENCES writ_users(id)
+    "fk_rails_b8fe337950" FOREIGN KEY (user_id) REFERENCES users(id)
+
+                    Sequence "public.writ_snippets_id_seq"
+  Type  | Start | Minimum |       Maximum       | Increment | Cycles? | Cache
+--------+-------+---------+---------------------+-----------+---------+-------
+ bigint |     1 |       1 | 9223372036854775807 |         1 | no      |     1
+Owned by: public.writ_snippets.id
+
+  Index "public.writ_snippets_pkey"
+ Column |  Type  | Key? | Definition
+--------+--------+------+------------
+ id     | bigint | yes  | id
+primary key, btree, for table "public.writ_snippets"
+
+                                          Table "public.writ_users"
+   Column   |              Type              | Collation | Nullable |                Default
+------------+--------------------------------+-----------+----------+----------------------------------------
+ id         | bigint                         |           | not null | nextval('writ_users_id_seq'::regclass)
+ ordinal    | integer                        |           |          |
+ user_id    | bigint                         |           | not null |
+ writ_id    | bigint                         |           | not null |
+ created_at | timestamp(6) without time zone |           | not null |
+ updated_at | timestamp(6) without time zone |           | not null |
+Indexes:
+    "writ_users_pkey" PRIMARY KEY, btree (id)
+    "index_writ_users_on_user_id" btree (user_id)
+    "index_writ_users_on_writ_id" btree (writ_id)
+Foreign-key constraints:
+    "fk_rails_097985936a" FOREIGN KEY (writ_id) REFERENCES writs(id)
+    "fk_rails_df08f20871" FOREIGN KEY (user_id) REFERENCES users(id)
+Referenced by:
+    TABLE "writ_snippets" CONSTRAINT "fk_rails_7e8e6212ca" FOREIGN KEY (writ_user_id) REFERENCES writ_users(id)
+
+                     Sequence "public.writ_users_id_seq"
+  Type  | Start | Minimum |       Maximum       | Increment | Cycles? | Cache
+--------+-------+---------+---------------------+-----------+---------+-------
+ bigint |     1 |       1 | 9223372036854775807 |         1 | no      |     1
+Owned by: public.writ_users.id
+
+   Index "public.writ_users_pkey"
+ Column |  Type  | Key? | Definition
+--------+--------+------+------------
+ id     | bigint | yes  | id
+primary key, btree, for table "public.writ_users"
+
+                                               Table "public.writs"
+        Column        |              Type              | Collation | Nullable |              Default
+----------------------+--------------------------------+-----------+----------+-----------------------------------
+ id                   | bigint                         |           | not null | nextval('writs_id_seq'::regclass)
+ title                | character varying              |           |          |
+ finished             | boolean                        |           |          |
+ started              | boolean                        |           |          |
+ max_entry_word_count | integer                        |           |          |
+ min_entry_word_count | integer                        |           |          |
+ max_total_word_count | integer                        |           |          |
+ min_total_word_count | integer                        |           |          |
+ created_at           | timestamp(6) without time zone |           | not null |
+ updated_at           | timestamp(6) without time zone |           | not null |
+Indexes:
+    "writs_pkey" PRIMARY KEY, btree (id)
+Referenced by:
+    TABLE "writ_users" CONSTRAINT "fk_rails_097985936a" FOREIGN KEY (writ_id) REFERENCES writs(id)
+    TABLE "writ_snippets" CONSTRAINT "fk_rails_248cd7284f" FOREIGN KEY (writ_id) REFERENCES writs(id)
+
+                        Sequence "public.writs_id_seq"
+  Type  | Start | Minimum |       Maximum       | Increment | Cycles? | Cache
+--------+-------+---------+---------------------+-----------+---------+-------
+ bigint |     1 |       1 | 9223372036854775807 |         1 | no      |     1
+Owned by: public.writs.id
+
+      Index "public.writs_pkey"
+ Column |  Type  | Key? | Definition
+--------+--------+------+------------
+ id     | bigint | yes  | id
+primary key, btree, for table "public.writs"
