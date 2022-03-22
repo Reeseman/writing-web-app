@@ -1,10 +1,10 @@
 <template>
   <div id="NewGame.vue">
-    <div class="cardContainer">
+<!--     <div class="cardContainer">
       <div class="card">
         <span>One Word</span>
       </div>
-    </div>
+    </div>-->    
     <div class="cardContainer">
       <div class="card">
         <div>Poem</div>
@@ -24,12 +24,12 @@
 </template>
 
 <script>
-   export default {
-      name: 'NewGame',
-      // props: {
-      //    cta: String,
-      // }
-   };
+  export default {
+    name: 'NewGame',
+    // props: {
+    //    cta: String,
+    // }
+  };
 </script>
 
 <style lang="scss" scoped>

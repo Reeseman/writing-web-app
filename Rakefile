@@ -31,11 +31,19 @@ namespace :db do
     sh 'docker-compose exec app rails db:rollback'
   end
 
-  task :c do
-    sh 'docker exec -it writing-web-app_database_1 /bin/sh'
+  task :sh do
+    sh 'PGUSER=sammy docker exec -it writing-web-app_database_1 /bin/sh'
   end
 
-  task :s do
+  # task :c do
+  #   sh 'PGUSER=sammy docker exec -it writing-web-app_database_1 /bin/sh'
+  #   => psql -U postgres
+  #   => \l # to list all the DBs
+  #   => \c writing-web-app_development # to dev on writing-web-app_development
+  #   => \dt # list all tables
+  # end
+
+  task :plant do
     sh 'docker-compose exec app rake db:seed'
   end
 end
