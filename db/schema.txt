@@ -15,85 +15,6 @@ Foreign-key constraints:
     "fk_rails_32d5eabbcf" FOREIGN KEY (user_id_1) REFERENCES users(id) ON DELETE CASCADE
     "fk_rails_eab5bdcbb4" FOREIGN KEY (user_id_2) REFERENCES users(id) ON DELETE CASCADE
 
-                     Sequence "public.connections_id_seq"
-  Type  | Start | Minimum |       Maximum       | Increment | Cycles? | Cache
---------+-------+---------+---------------------+-----------+---------+-------
- bigint |     1 |       1 | 9223372036854775807 |         1 | no      |     1
-Owned by: public.connections.id
-
-   Index "public.connections_pkey"
- Column |  Type  | Key? | Definition
---------+--------+------+------------
- id     | bigint | yes  | id
-primary key, btree, for table "public.connections"
-
-Index "public.index_connections_on_user_id_1"
-  Column   |  Type   | Key? | Definition
------------+---------+------+------------
- user_id_1 | integer | yes  | user_id_1
-btree, for table "public.connections"
-
-Index "public.index_connections_on_user_id_2"
-  Column   |  Type   | Key? | Definition
------------+---------+------+------------
- user_id_2 | integer | yes  | user_id_2
-btree, for table "public.connections"
-
-          Index "public.index_users_on_confirmation_token"
-       Column       |       Type        | Key? |     Definition
---------------------+-------------------+------+--------------------
- confirmation_token | character varying | yes  | confirmation_token
-unique, btree, for table "public.users"
-
-      Index "public.index_users_on_email"
- Column |       Type        | Key? | Definition
---------+-------------------+------+------------
- email  | character varying | yes  | email
-unique, btree, for table "public.users"
-
-           Index "public.index_users_on_reset_password_token"
-        Column        |       Type        | Key? |      Definition
-----------------------+-------------------+------+----------------------
- reset_password_token | character varying | yes  | reset_password_token
-unique, btree, for table "public.users"
-
-  Index "public.index_users_on_uid_and_provider"
-  Column  |       Type        | Key? | Definition
-----------+-------------------+------+------------
- uid      | character varying | yes  | uid
- provider | character varying | yes  | provider
-unique, btree, for table "public.users"
-
-Index "public.index_writ_snippets_on_user_id"
- Column  |  Type  | Key? | Definition
----------+--------+------+------------
- user_id | bigint | yes  | user_id
-btree, for table "public.writ_snippets"
-
-Index "public.index_writ_snippets_on_writ_id"
- Column  |  Type  | Key? | Definition
----------+--------+------+------------
- writ_id | bigint | yes  | writ_id
-btree, for table "public.writ_snippets"
-
-Index "public.index_writ_snippets_on_writ_user_id"
-    Column    |  Type  | Key? |  Definition
---------------+--------+------+--------------
- writ_user_id | bigint | yes  | writ_user_id
-btree, for table "public.writ_snippets"
-
-Index "public.index_writ_users_on_user_id"
- Column  |  Type  | Key? | Definition
----------+--------+------+------------
- user_id | bigint | yes  | user_id
-btree, for table "public.writ_users"
-
-Index "public.index_writ_users_on_writ_id"
- Column  |  Type  | Key? | Definition
----------+--------+------+------------
- writ_id | bigint | yes  | writ_id
-btree, for table "public.writ_users"
-
                Table "public.schema_migrations"
  Column  |       Type        | Collation | Nullable | Default
 ---------+-------------------+-----------+----------+---------
@@ -101,11 +22,6 @@ btree, for table "public.writ_users"
 Indexes:
     "schema_migrations_pkey" PRIMARY KEY, btree (version)
 
-      Index "public.schema_migrations_pkey"
- Column  |       Type        | Key? | Definition
----------+-------------------+------+------------
- version | character varying | yes  | version
-primary key, btree, for table "public.schema_migrations"
 
                                                 Table "public.users"
          Column         |              Type              | Collation | Nullable |              Default
@@ -142,18 +58,6 @@ Referenced by:
     TABLE "writ_users" CONSTRAINT "fk_rails_df08f20871" FOREIGN KEY (user_id) REFERENCES users(id)
     TABLE "connections" CONSTRAINT "fk_rails_eab5bdcbb4" FOREIGN KEY (user_id_2) REFERENCES users(id) ON DELETE CASCADE
 
-                        Sequence "public.users_id_seq"
-  Type  | Start | Minimum |       Maximum       | Increment | Cycles? | Cache
---------+-------+---------+---------------------+-----------+---------+-------
- bigint |     1 |       1 | 9223372036854775807 |         1 | no      |     1
-Owned by: public.users.id
-
-      Index "public.users_pkey"
- Column |  Type  | Key? | Definition
---------+--------+------+------------
- id     | bigint | yes  | id
-primary key, btree, for table "public.users"
-
                                            Table "public.writ_snippets"
     Column    |              Type              | Collation | Nullable |                  Default
 --------------+--------------------------------+-----------+----------+-------------------------------------------
@@ -175,17 +79,7 @@ Foreign-key constraints:
     "fk_rails_7e8e6212ca" FOREIGN KEY (writ_user_id) REFERENCES writ_users(id)
     "fk_rails_b8fe337950" FOREIGN KEY (user_id) REFERENCES users(id)
 
-                    Sequence "public.writ_snippets_id_seq"
-  Type  | Start | Minimum |       Maximum       | Increment | Cycles? | Cache
---------+-------+---------+---------------------+-----------+---------+-------
- bigint |     1 |       1 | 9223372036854775807 |         1 | no      |     1
-Owned by: public.writ_snippets.id
 
-  Index "public.writ_snippets_pkey"
- Column |  Type  | Key? | Definition
---------+--------+------+------------
- id     | bigint | yes  | id
-primary key, btree, for table "public.writ_snippets"
 
                                           Table "public.writ_users"
    Column   |              Type              | Collation | Nullable |                Default
@@ -206,17 +100,6 @@ Foreign-key constraints:
 Referenced by:
     TABLE "writ_snippets" CONSTRAINT "fk_rails_7e8e6212ca" FOREIGN KEY (writ_user_id) REFERENCES writ_users(id)
 
-                     Sequence "public.writ_users_id_seq"
-  Type  | Start | Minimum |       Maximum       | Increment | Cycles? | Cache
---------+-------+---------+---------------------+-----------+---------+-------
- bigint |     1 |       1 | 9223372036854775807 |         1 | no      |     1
-Owned by: public.writ_users.id
-
-   Index "public.writ_users_pkey"
- Column |  Type  | Key? | Definition
---------+--------+------+------------
- id     | bigint | yes  | id
-primary key, btree, for table "public.writ_users"
 
                                                Table "public.writs"
         Column        |              Type              | Collation | Nullable |              Default
@@ -237,14 +120,3 @@ Referenced by:
     TABLE "writ_users" CONSTRAINT "fk_rails_097985936a" FOREIGN KEY (writ_id) REFERENCES writs(id)
     TABLE "writ_snippets" CONSTRAINT "fk_rails_248cd7284f" FOREIGN KEY (writ_id) REFERENCES writs(id)
 
-                        Sequence "public.writs_id_seq"
-  Type  | Start | Minimum |       Maximum       | Increment | Cycles? | Cache
---------+-------+---------+---------------------+-----------+---------+-------
- bigint |     1 |       1 | 9223372036854775807 |         1 | no      |     1
-Owned by: public.writs.id
-
-      Index "public.writs_pkey"
- Column |  Type  | Key? | Definition
---------+--------+------+------------
- id     | bigint | yes  | id
-primary key, btree, for table "public.writs"
