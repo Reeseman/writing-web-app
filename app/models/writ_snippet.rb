@@ -1,3 +1,4 @@
+# typed: strict
 class WritSnippet < ApplicationRecord
   belongs_to :user
   belongs_to :writ

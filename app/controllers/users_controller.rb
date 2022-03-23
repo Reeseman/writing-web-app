@@ -1,3 +1,4 @@
+# typed: false
 class UsersController < ProtectedBySessionsController
   def user_data
     token = JSON.parse(params[:token])

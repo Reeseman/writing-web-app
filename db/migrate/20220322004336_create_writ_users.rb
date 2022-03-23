@@ -1,3 +1,4 @@
+# typed: true
 class CreateWritUsers < ActiveRecord::Migration[6.1]
   def change
     create_table :writ_users do |t|
