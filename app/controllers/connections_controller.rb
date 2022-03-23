@@ -1,3 +1,4 @@
+# typed: false
 class ConnectionsController < ProtectedBySessionsController
   def make_connection
     from_uid = params['fromUid'].to_i

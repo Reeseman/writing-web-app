@@ -1,3 +1,4 @@
+# typed: false
 class ProtectedBySessionsController < ApplicationController
   include DeviseTokenAuth::Concerns::SetUserByToken
 
