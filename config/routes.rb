@@ -9,4 +9,10 @@ Rails.application.routes.draw do
   get '/make_connection', to: 'connections#make_connection'
   get '/delete_connection', to: 'connections#delete_connection'
   get '/accept_connection', to: 'connections#accept_connection'
+
+  namespace :api do
+    namespace :v1 do 
+      post 'writs/', to: 'writs#create'
+    end
+  end
 end

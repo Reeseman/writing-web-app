@@ -84,4 +84,8 @@ namespace :app do
   task :rubocop do
     sh 'docker-compose exec app rubocop'
   end
+
+  task  :srb do 
+    sh 'srb tc'
+  end
 end

@@ -35,7 +35,7 @@ class ConnectionsController < ProtectedBySessionsController
   end
 
   def show
-    uid = JSON.parse(params[:token])['user']['id']
+    uid = params[:uid]
     connections = Connection.where(user_id_1: uid).or(Connection.where(user_id_2: uid)).to_a
     connections_dto = []
     connections.each do |connection, index|
