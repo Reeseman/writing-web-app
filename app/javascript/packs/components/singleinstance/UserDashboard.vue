@@ -42,7 +42,7 @@
       }
     },
     beforeCreate() {
-      this.$http.get(`/user_data?token=${this.$cookie.get('session')}`, { })
+      this.$http.get(`/user_data?uid=${JSON.parse(this.$cookie.get('session'))['user']['id']}`, { })
             
         .then(response => {
           // console.log(`get /user_data response: ${JSON.stringify(response.data)}`);

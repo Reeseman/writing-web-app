@@ -149,7 +149,7 @@
         this.contacts = [];
         this.outboundContacts = [];
         this.inboundContacts = [];
-        this.$http.get(`/connections?token=${this.$cookie.get('session')}`, { })
+        this.$http.get(`/connections?uid=${JSON.parse(this.$cookie.get('session'))['user']['id']}`, { })
           .then(response => {
             var contacts = response.data;
             for (var i = 0; i < contacts.length; i += 1) {

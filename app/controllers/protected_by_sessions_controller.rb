@@ -8,6 +8,12 @@ class ProtectedBySessionsController < ApplicationController
   before_action :authenticate_user!
 
   def check_session
+    puts request.headers.env["HTTP_TOKEN_TYPE"].inspect
+    puts request.headers.env["HTTP_UID"].inspect
+    puts request.headers.env["HTTP_ACCESS_TOKEN"].inspect
+    puts request.headers.env["HTTP_CLIENT"].inspect
+    puts request.headers.env["HTTP_EXPIRY"].inspect
+    
     return render json: { 'error' => 'no session' }, status: 403 if cookies['session'].nil?
 
     tokens = JSON.parse(cookies.fetch('session')).fetch('tokens')
