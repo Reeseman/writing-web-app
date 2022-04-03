@@ -33,7 +33,7 @@
       <h3>Pending Inbound Requests</h3>
       <ul>
         <li v-for="contact in this.inboundContacts" :key="contact.id">
-          A user with email {{ contact.email }} has requested that you make contact. 
+          A user with email {{ contact.email }} has requested that you make contact.
           They have been waiting for your response since {{ formatDate(contact.updated_at) }}.
           <button @click="acceptInboundRequest(contact['user_id_1'], contact['user_id_2'])">Accept Request</button>
           <button @click="declineRequest(contact['user_id_1'], contact['user_id_2'])">Decline Request</button>
@@ -54,7 +54,9 @@
 </template>
 
 <script>
-  import BaseButton from 'components/base/BaseButton'
+  import BaseButton from 'components/base/BaseButton';
+  import connectionsMixin from 'lib/api/connections';
+  import delayMixin from 'lib/api/delay';
   export default {
     name: 'Contacts',
     data: function() {
@@ -73,40 +75,28 @@
     components: {
       BaseButton,
     },
+    beforeCreate() {
+      this.fromUid = JSON.parse(this.$cookie.get('session'))['user']['id'];
+    }
     created() {
       this.refreshConnections();
-      this.fromUid = JSON.parse(this.$cookie.get('session'))['user']['id'];
     },
     methods: {
       sendConnectionRequest() {
-        this.$http.get(`/make_connection?fromUid=${this.fromUid}&email=${this.form.email}`)
-          .then(response => {
-            this.outboundContacts.push(response.data);
-            this.success = 'Request sent';
-            this.error = '';
-          })
-          .catch(error => {
-            if (error.response) {
-              this.error = error.response.data.error || 'Internal server error: Unknown';
-            } else {
-              this.error = 'Internal server error: unknown';
-            }
-          });
+        this.makeNewConnection(this.fromUid, this.form.email, this.newConnectionResponse, this.newConnectionError);
+      },
+      newConnectionResponse(response) {
+        this.outboundContacts.push(response.data);
+        this.success = 'Request sent';
+        this.error = '';
       },
       acceptInboundRequest(uid1, uid2) {
-        this.$http.get(`/accept_connection?fromUid=${uid1}&toUid=${uid2}`)
-          .then(response => {
-            this.success = 'Request accepted.';
-            this.error = '';
-          })
-          .catch(error => {
-            if (error.response) {
-              this.error = error.response.data.error || 'Internal server error: Unknown';
-            } else {
-              this.error = 'Internal server error: unknown';
-            }
-          });
+        this.acceptInboundConnectionRequest(uid1, uid2, this.acceptInboundRequestHandler);
         this.refreshConnectionsSlowly();
+      },
+      acceptInboundRequestHandler(response) {
+        this.success = 'Request accepted.';
+        this.error = '';
       },
       deleteOutboundRequest(uid1, uid2) {
         this.deleteRequest(uid1, uid2, 'Outbound request deleted.');
@@ -118,18 +108,11 @@
         this.deleteRequest(uid1, uid2, 'Request declined.');
       },
       deleteRequest(uid1, uid2, successMessage) {
-        this.$http.get(`/delete_connection?fromUid=${uid1}&toUid=${uid2}`)
-          .then(response => {
-            this.success = successMessage;
-            this.error = '';
-          })
-          .catch(error => {
-            if (error.response) {
-              this.error = error.response.data.error;
-            } else {
-              this.error = 'Internal server error: unknown';
-            }
-          });
+        this.deleteAnyContactRequest(uid1, uid2, successMessage, this.deleteRequestCallback);
+      },
+      deleteRequestCallback(msg) {
+        this.success = msg;
+        this.error = '';
         this.refreshConnectionsSlowly();
       },
       clearError() {
@@ -139,33 +122,31 @@
         return date.split('T')[0];
       },
       refreshConnectionsSlowly() {
-        function delay(time) {
-          return new Promise(resolve => setTimeout(resolve, time));
-        }
-
-        delay(200).then(this.refreshConnections);
+        this.delay(150).then(this.refreshConnections);
       },
       refreshConnections() {
-        this.contacts = [];
-        this.outboundContacts = [];
-        this.inboundContacts = [];
-        this.$http.get(`/connections?uid=${JSON.parse(this.$cookie.get('session'))['user']['id']}`, { })
-          .then(response => {
-            var contacts = response.data;
-            for (var i = 0; i < contacts.length; i += 1) {
-              if (contacts[i].accepted) {
-                this.contacts.push(contacts[i]);
-              } else {
-                if (this.fromUid === contacts[i].user_id_1) {
-                  this.outboundContacts.push(contacts[i]);
-                } else {
-                  this.inboundContacts.push(contacts[i]);
-                }
-              }
+        this.getConnections(this.fromUid, this.refreshConnectionsHandler);
+      },
+      refreshConnectionsHandler(response) {
+        let acceptedContacts = [];
+        let outboundContacts = [];
+        let inboundContacts = [];
+        const contacts = response.data;
+        for (let i = 0; i < contacts.length; i += 1) {
+          if (contacts[i].accepted) {
+            acceptedContacts.push(contacts[i]);
+          } else {
+            if (this.fromUid === contacts[i].user_id_1) {
+              outboundContacts.push(contacts[i]);
+            } else {
+              inboundContacts.push(contacts[i]);
             }
-          })
-          .catch(error => console.log(error));
-      }
+          }
+        }
+        this.contacts = acceptedContacts;
+        this.inboundContacts = inboundContacts;
+        this.outboundContacts = outboundContacts;
+      },
     },
   };
 </script>

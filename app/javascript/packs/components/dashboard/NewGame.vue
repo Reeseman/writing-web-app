@@ -31,7 +31,7 @@
         <span>Minimum word count for the entire writ: </span>
         <input type="number" v-model="form.minTotalWordCount" placeholder="Minimum word count total" />
       </div>
-      <BaseButton cta="Start Collaboration" :onClick="signin"/>
+      <BaseButton cta="Start Collaboration" :onClick="createWrit"/>
     </form>
   </div>
 </template>
@@ -56,8 +56,11 @@
     components: {
       BaseButton,
     },
+    beforeCreate() {
+
+    },
     methods: {
-      signin() {
+      createWrit() {
       }
     }
     // props: {
@@ -73,7 +76,7 @@
     background-color: $medBlue;
     overflow: hidden;
     position: absolute;
-    width: calc(100% - 100px);
+    width: 100%;
     height: 100%;
     display: flex;
     justify-content: center; /*centers items on the line (the x-axis by default)*/
@@ -84,9 +87,13 @@
     max-width: 500px;
     border: 1px solid $darkOrange;
     border-radius: 23px;
-    padding: 20px;
+    padding: 20px 30px 30px 30px;
     margin-top: 40px;
     background-color: $offWhite;
+  }
+
+  .main {
+    padding-top: 0;
   }
 
   .inputContainer {
@@ -114,9 +121,9 @@
   //   text-align: center;
   //   border: 1px solid $medBlue;
   // }
-
-  .card:hover {
-    cursor: pointer;
-    border: 1px solid $lightOrange;
-  }
+  //
+  // .card:hover {
+  //   cursor: pointer;
+  //   border: 1px solid $lightOrange;
+  // }
 </style>
