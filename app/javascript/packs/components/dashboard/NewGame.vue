@@ -81,49 +81,23 @@
     display: flex;
     justify-content: center; /*centers items on the line (the x-axis by default)*/
     align-items: center; /*centers items on the cross-axis (y by default)*/
-  }
 
-  form {
-    max-width: 500px;
-    border: 1px solid $darkOrange;
-    border-radius: 23px;
-    padding: 20px 30px 30px 30px;
-    margin-top: 40px;
-    background-color: $offWhite;
-  }
+    form {
+      max-width: 500px;
+      border: 1px solid $darkOrange;
+      border-radius: 23px;
+      padding: 20px 30px 30px 30px;
+      margin-top: 40px;
+      margin-right: 160px;
+      background-color: $offWhite;
+    }
 
-  .main {
-    padding-top: 0;
-  }
-
-  .inputContainer {
-    margin: 14px 0 14px 0;
-    & > input, select {
-      margin-top: 5px;
-      display: block;
+    .inputContainer {
+      margin: 14px 0 14px 0;
+      & > input, select {
+        margin-top: 5px;
+        display: block;
+      }
     }
   }
-
-  // .cardContainer {
-  //   padding: 5px;
-  //   display: inline-block;
-  // }
-  //
-  // .card {
-  //   background-color: $whiteSpace;
-  //   border-radius: 5px;
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: center;
-  //   padding: 5px;
-  //   height: 125px;
-  //   width: 100px;
-  //   text-align: center;
-  //   border: 1px solid $medBlue;
-  // }
-  //
-  // .card:hover {
-  //   cursor: pointer;
-  //   border: 1px solid $lightOrange;
-  // }
 </style>

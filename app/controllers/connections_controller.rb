@@ -38,9 +38,9 @@ class ConnectionsController < ProtectedBySessionsController
     uid = params[:uid]
     connections = Connection.where(user_id_1: uid).or(Connection.where(user_id_2: uid)).to_a
     connections_dto = []
-    connections.each do |connection, index|
+    connections.each do |connection|
       connection_dto = connection.as_json
-      other_user_id = connection_dto['user_id_1'] == uid ? connection.user_id_2 : connection.user_id_1
+      other_user_id = connection_dto['user_id_1'] == uid ? connection.user_id_1 : connection.user_id_2
       connection_dto.merge!(User.find(other_user_id).as_json)
       connections_dto << connection_dto.except!('id', 'allow_password_change', 'provider', 'uid')
     end
