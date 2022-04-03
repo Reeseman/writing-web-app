@@ -1,6 +1,6 @@
 <template>
   <div id="BaseButton.vue">
-    <button @click="onClick" class="btn">{{ cta }}</button>
+    <button @click="this.clicked" class="btn" :disabled="enabled === false">{{ cta }}</button>
   </div>
 </template>
 
@@ -11,12 +11,25 @@
         cta: {
           type: String,
           required: true,
+          default: '',
         },
         onClick: {
           type: Function,
           required: true,
         },
+        enabled: {
+          type: Boolean,
+          required: false,
+          default: true,
+        },
       },
+      methods: {
+        clicked() {
+          if (this.enabled) {
+            this.onClick();
+          }
+        }
+      }
    };
 </script>
 
@@ -38,5 +51,12 @@
       display: inline-block;
       cursor: pointer;
       text-align: center;
+   }
+
+   .btn:disabled {
+      color: $lightOrange;
+      cursor: default;
+      background-color: $offWhite;
+      border: solid $lightOrange 1px;
    }
 </style>

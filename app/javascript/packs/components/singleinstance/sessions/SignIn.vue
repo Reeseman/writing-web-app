@@ -1,7 +1,7 @@
 <template>
   <div id="SignIn.vue" class="container">
     <div class="signupContainer">
-      <h1 class="title">Sign in</h1>
+      <base-title text="Sign in" />
       <form>
         <div v-if="error">{{ error }}</div>
 
@@ -33,7 +33,8 @@
 </template>
 
 <script scoped>
-  import BaseButton from 'components/base/BaseButton'
+  import BaseButton from 'components/base/BaseButton';
+  import BaseTitle from 'components/base/BaseTitle';
   import { pick } from 'lodash';
 
   export default {
@@ -47,6 +48,7 @@
     },
     components: {
       BaseButton,
+      BaseTitle,
     },
     methods: {
       signin() {
@@ -138,15 +140,5 @@
 
   .redirectLinks a {
     color: $darkBlue;
-  }
-
-  .title {
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-bottom: 0;
-    color: $darkBlue;
-    font-family: serif;
-    font-weight: normal;
-    margin-bottom: 25px;
   }
 </style>

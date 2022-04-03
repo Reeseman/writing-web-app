@@ -1,5 +1,5 @@
 <template>
-  <div id="Contacts.vue" class="contactsMain">
+  <div id="Contacts.vue" class="container">
     <p v-show="error.length > 0" class="error">
       {{ error }}
     </p>
@@ -152,8 +152,8 @@
 
 <style lang="scss" scoped>
   @import 'application.scss';
-  
-  .contactsMain {
+
+  .container {
     padding: 0 20px;
 
     form {
