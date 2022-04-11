@@ -43,7 +43,7 @@
     },
     beforeCreate() {
       this.$http.get(`/user_data?uid=${JSON.parse(this.$cookie.get('session'))['user']['id']}`, { })
-            
+
         .then(response => {
           // console.log(`get /user_data response: ${JSON.stringify(response.data)}`);
           this.user = response.data;
@@ -56,15 +56,19 @@
 <style lang="scss" scoped>
   @import 'application.scss';
 
-  .main {
-    margin-left: 160px;
-    padding: 20px;
+  body {
     background-color: $offWhite;
-    width: 100%;
-    height: 100vh;
   }
 
   .dashboard {
     overflow: hidden;
+    background-color: $offWhite;
+
+    .main {
+      margin-left: 160px;
+      background-color: $offWhite;
+      width: 100%;
+      height: 100vh;
+    }
   }
 </style>

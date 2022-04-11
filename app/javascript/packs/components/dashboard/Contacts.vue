@@ -1,5 +1,5 @@
 <template>
-  <div id="Contacts.vue">
+  <div id="Contacts.vue" class="container">
     <p v-show="error.length > 0" class="error">
       {{ error }}
     </p>
@@ -57,6 +57,7 @@
   import BaseButton from 'components/base/BaseButton';
   import connectionsMixin from 'lib/api/connections';
   import delayMixin from 'lib/api/delay';
+
   export default {
     name: 'Contacts',
     data: function() {
@@ -75,10 +76,8 @@
     components: {
       BaseButton,
     },
-    beforeCreate() {
-      this.fromUid = JSON.parse(this.$cookie.get('session'))['user']['id'];
-    }
     created() {
+      this.fromUid = JSON.parse(this.$cookie.get('session'))['user']['id'];
       this.refreshConnections();
     },
     methods: {
@@ -153,32 +152,39 @@
 
 <style lang="scss" scoped>
   @import 'application.scss';
-  form > input {
-      -webkit-border-radius: 3px;
-      -moz-border-radius: 3px;
-      border-radius: 3px;
-      font-family: Arial;
-      font-size: 15px;
-      line-height: 20px;
-      width: 250px;
-      padding: 10px;
-      background-color: $whiteSpace;
-      border: solid $darkOrange 1px;
-      text-decoration: none;
-      display: inline-block;
-  }
 
-  form > input:focus {
-      border: solid $darkOrange 1px !important;
-      outline-offset: 0px !important;
-      outline: none !important;
-  }
+  .container {
+    padding: 0 20px;
 
-  .error {
-    color: $darkOrange;
-  }
+    form {
+      input {
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        font-family: Arial;
+        font-size: 15px;
+        line-height: 20px;
+        width: 250px;
+        padding: 10px;
+        background-color: $whiteSpace;
+        border: solid $darkOrange 1px;
+        text-decoration: none;
+        display: inline-block;
+      }
 
-  .success {
-    color: $medBlue;
+      input:focus {
+        border: solid $darkOrange 1px !important;
+        outline-offset: 0px !important;
+        outline: none !important;
+      }
+    }
+
+    .error {
+      color: $darkOrange;
+    }
+
+    .success {
+      color: $medBlue;
+    }
   }
 </style>

@@ -14,6 +14,7 @@
     "vue-cookie": "^1.1.4",
     "vue-cookies": "^1.7.4",
     "vue-loader": "^15.9.6",
+    "vue-multiselect": "^2.1.6",
     "vue-router": "^3.5.1",
     "vue-template-compiler": "^2.6.12",
     "vue-turbolinks": "^2.2.0",

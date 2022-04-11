@@ -3,7 +3,7 @@ import Vue from 'vue';
 Vue.mixin({
   methods: {
     makeNewConnection(fromUid, email, callback) {
-      this.$http.get(`/make_connection?fromUid=${this.fromUid}&email=${this.form.email}`)
+      this.$http.get(`/make_connection?fromUid=${fromUid}&email=${email}`)
         .then(callback)
         .catch(this.handleStandardError);
     },
